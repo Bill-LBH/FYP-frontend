@@ -85,7 +85,9 @@
           <el-input v-model="form.paperid" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Exam date">
-          <el-input v-model="form.examdate" autocomplete="off"></el-input>
+          <el-col :span="11">
+            <el-date-picker type="date" placeholder="Select Date" v-model="form.examdate" style="width: 100%;"></el-date-picker>
+          </el-col>
         </el-form-item>
         <el-form-item label="Total time">
           <el-input v-model="form.totaltime" autocomplete="off"></el-input>

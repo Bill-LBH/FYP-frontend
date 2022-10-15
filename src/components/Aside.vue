@@ -17,13 +17,23 @@
         <span slot="title">Homepage</span>
       </template>
     </el-menu-item>
-    <el-menu-item index="/exam">
+    <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-date"></i>
-        <span slot="title">Exam</span>
+        <span>Exam</span>
       </template>
-    </el-menu-item>
-    <el-submenu index="1">
+      <el-menu-item index="/exam">
+        <template slot="title">
+          <span slot="title">Exam arrange</span>
+        </template>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <template slot="title">
+          <span slot="title">Paper setting</span>
+        </template>
+      </el-menu-item>
+    </el-submenu>
+    <el-submenu index="2">
       <template slot="title">
         <i class="el-icon-notebook-2"></i>
         <span>Question</span>
