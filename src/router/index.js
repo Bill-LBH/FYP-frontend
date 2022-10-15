@@ -8,33 +8,31 @@ const routes = [
   {
     path: '/',
     name: 'teacher',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Teacher/TeacherFunction.vue'),
+    component: () => import( '../views/Teacher/TeacherFunction.vue'),
     redirect:"/home",
     children: [
-        {path: '/student', name: 'Student', component: () => import(/* webpackChunkName: "about" */ '../views/Teacher/StudentManagement.vue')},
-        {path: '/home', name: 'Home', component: () => import(/* webpackChunkName: "about" */ '../views/Teacher/Home.vue')},
-      {path: '/exam', name: 'Exam', component: () => import(/* webpackChunkName: "about" */ '../views/Teacher/ExamManagement.vue')},
-      {path: '/fill_in', name: 'Fill in questions', component: () => import(/* webpackChunkName: "about" */ '../views/Teacher/Fill_inQuestion.vue')},
-      {path: '/score', name: 'Score', component: () => import(/* webpackChunkName: "about" */ '../views/Teacher/ScoreManagement.vue')},
-      {path: '/multi_choice', name: 'Multi choice questions', component: () => import(/* webpackChunkName: "about" */ '../views/Teacher/MultiChoice.vue')},
-      {path: '/judge', name: 'Judge questions', component: () => import(/* webpackChunkName: "about" */ '../views/Teacher/JudgeQuestion.vue')},
+        {path: '/student', name: 'Student', component: () => import( '../views/Teacher/StudentManagement.vue')},
+        {path: '/home', name: 'Home', component: () => import( '../views/Teacher/Home.vue')},
+      {path: '/exam', name: 'Exam', component: () => import( '../views/Teacher/ExamManagement.vue')},
+      {path: '/fill_in', name: 'Fill in questions', component: () => import( '../views/Teacher/Fill_inQuestion.vue')},
+      {path: '/score', name: 'Score', component: () => import( '../views/Teacher/ScoreManagement.vue')},
+      {path: '/multi_choice', name: 'Multi choice questions', component: () => import( '../views/Teacher/MultiChoice.vue')},
+      {path: '/judge', name: 'Judge questions', component: () => import( '../views/Teacher/JudgeQuestion.vue')},
+      {
+        path: '/addAnswer', //增加题库主界面
+        name:'Paper',
+        component: () => import('../views/Teacher/AddAnswer.vue')
+      },
+      {
+        path: '/addAnswerChildren', //点击试卷跳转到添加题库页面
+        component: () => import('../views/Teacher/AddAnswerChildren.vue')
+      },
     ]
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import( '../views/Login.vue')
   }
 ]
 

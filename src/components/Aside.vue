@@ -11,7 +11,7 @@
       <img src="../assets/new_logo.png" alt="" style="width: 40px; position: relative; top: 10px; right: 5px">
       <b style="color: white" v-show="logoTextShow">Online Exam</b>
     </div>
-    <el-menu-item index="/">
+    <el-menu-item index="/home">
       <template slot="title">
         <i class="el-icon-house"></i>
         <span slot="title">Homepage</span>
@@ -27,7 +27,7 @@
           <span slot="title">Exam arrange</span>
         </template>
       </el-menu-item>
-      <el-menu-item index="3">
+      <el-menu-item index="/addAnswer">
         <template slot="title">
           <span slot="title">Paper setting</span>
         </template>

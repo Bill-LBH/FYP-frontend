@@ -3,7 +3,7 @@
 
     <div style="margin: 10px 0">
       <el-input style="width: 200px" placeholder="Please input exam code" suffix-icon="el-icon-search" v-model="examcode"></el-input>
-      <el-input style="width: 200px" placeholder="Please input source" suffix-icon="el-icon-search" v-model="source"></el-input>
+      <el-input style="width: 200px" placeholder="Please input course name" suffix-icon="el-icon-search" v-model="source"></el-input>
       <el-input style="width: 200px" placeholder="Please input paper id" suffix-icon="el-icon-search" v-model="paperid"></el-input>
       <el-button class="ml-5" type="primary" @click="load">Search</el-button>
       <el-button class="el-alert--warning" type="primary" @click="reset">Reset</el-button>
