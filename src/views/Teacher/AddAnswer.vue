@@ -11,21 +11,21 @@
 
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg">
-      <el-table-column prop="examcode" label="Exam code" width="140">
+<!--      <el-table-column prop="examcode" label="Exam code" width="120">-->
+<!--      </el-table-column>-->
+      <el-table-column prop="source" label="Course name" width="180">
       </el-table-column>
-      <el-table-column prop="source" label="Course name" width="140">
+      <el-table-column prop="paperid" label="Paper id" width="100">
       </el-table-column>
-      <el-table-column prop="paperid" label="Paper id" width="140">
+      <el-table-column prop="examdate" label="Exam date" width="160">
       </el-table-column>
-      <el-table-column prop="examdate" label="Exam date" width="140">
+      <el-table-column prop="totaltime" label="Total time" width="100">
       </el-table-column>
-      <el-table-column prop="totaltime" label="Total time" width="140">
+      <el-table-column prop="grade" label="Grade" width="100">
       </el-table-column>
-      <el-table-column prop="grade" label="Grade" width="140">
+      <el-table-column prop="term" label="Term" width="100">
       </el-table-column>
-      <el-table-column prop="term" label="Term" width="140">
-      </el-table-column>
-      <el-table-column prop="major" label="Major" width="140">
+      <el-table-column prop="major" label="Major" width="160">
       </el-table-column>
       <el-table-column prop="totalscore" label="Total score" width="140">
       </el-table-column>

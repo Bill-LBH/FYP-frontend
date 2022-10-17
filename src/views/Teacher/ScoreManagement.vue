@@ -25,8 +25,8 @@
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="scoreid" label="Score Id" width="140">
-      </el-table-column>
+<!--      <el-table-column prop="scoreid" label="Score Id" width="140">-->
+<!--      </el-table-column>-->
       <el-table-column prop="examcode" label="Exam code" width="140">
       </el-table-column>
       <el-table-column prop="studentid" label="Student ID" width="140">
@@ -68,9 +68,9 @@
     </div>
     <el-dialog title="New score information" :visible.sync="dialogFormVisible" width="30%" >
       <el-form label-width="100px" size="small">
-        <el-form-item label="Score Id">
-          <el-input v-model="form.scoreid" autocomplete="off"></el-input>
-        </el-form-item>
+<!--        <el-form-item label="Score Id">-->
+<!--          <el-input v-model="form.scoreid" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="Exam code">
           <el-input v-model="form.examcode" autocomplete="off"></el-input>
         </el-form-item>

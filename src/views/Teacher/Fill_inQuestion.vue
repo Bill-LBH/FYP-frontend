@@ -2,7 +2,6 @@
   <div>
 
     <div style="margin: 10px 0">
-      <el-input style="width: 200px" placeholder="Please input question id" suffix-icon="el-icon-search" v-model="questionid"></el-input>
       <el-input style="width: 200px" placeholder="Please input subject" suffix-icon="el-icon-search" v-model="subject"></el-input>
       <el-input style="width: 200px" placeholder="Please input section" suffix-icon="el-icon-search" v-model="section"></el-input>
       <el-button class="ml-5" type="primary" @click="load">Search</el-button>
@@ -26,8 +25,8 @@
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="questionid" label="Question Id" width="140">
-      </el-table-column>
+<!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
+<!--      </el-table-column>-->
       <el-table-column prop="subject" label="Subject" width="140">
       </el-table-column>
       <el-table-column prop="question" label="Question" width="140">
@@ -73,9 +72,9 @@
     </div>
     <el-dialog title="New fill in question" :visible.sync="dialogFormVisible" width="30%" >
       <el-form label-width="100px" size="small">
-        <el-form-item label="Question Id">
-          <el-input v-model="form.questionid" autocomplete="off"></el-input>
-        </el-form-item>
+<!--        <el-form-item label="Question Id">-->
+<!--          <el-input v-model="form.questionid" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="Subject">
           <el-input v-model="form.subject" autocomplete="off"></el-input>
         </el-form-item>
@@ -95,7 +94,14 @@
           <el-input v-model="form.section" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Level">
-          <el-input v-model="form.level" autocomplete="off"></el-input>
+          <el-select v-model="form.level" placeholder="Please select difficulty of this question">
+            <el-option
+                v-for="item in leveloptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -117,7 +123,6 @@ export default {
       total :0,
       pageNum: 1,
       pageSize: 2,
-      questionid:"",
       subject: "",
       question: "",
       answer:"",
@@ -128,6 +133,26 @@ export default {
       headerBg: 'headerBg',
       form: {},
       dialogFormVisible: false,
+      leveloptions: [{
+        value: '1',
+        label: '1'
+      }, {
+        value: '2',
+        label: '2'
+      },
+        {
+          value: '3',
+          label: '3'
+        },
+        {
+          value: '4',
+          label: '4'
+        },
+        {
+          value: '5',
+          label: '5'
+        },
+      ],
     }
   },
   created() {
@@ -140,7 +165,6 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          questionid: this.questionid,
           subject: this.subject,
           section: this.section,
         }

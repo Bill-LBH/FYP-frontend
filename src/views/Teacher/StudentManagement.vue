@@ -81,9 +81,16 @@
       <el-form-item label="Name">
         <el-input v-model="form.username" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="Gender">
-        <el-input v-model="form.gender" autocomplete="off"></el-input>
-      </el-form-item>
+      \<el-form-item label="Gender">
+      <el-select v-model="form.gender" placeholder="Please select difficulty of this question">
+        <el-option
+            v-for="item in genderoptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+        </el-option>
+      </el-select>
+    </el-form-item>
       <el-form-item label="Address">
         <el-input v-model="form.address" autocomplete="off"></el-input>
       </el-form-item>
@@ -94,7 +101,14 @@
         <el-input v-model="form.phone" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="Major">
-        <el-input v-model="form.major" autocomplete="off"></el-input>
+        <el-select v-model="form.major" placeholder="Please select student major">
+          <el-option
+              v-for="item in majoroptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="Enroll Year">
         <el-input v-model="form.year" autocomplete="off"></el-input>
@@ -134,6 +148,80 @@ export default {
       headerBg: 'headerBg',
       form: {},
       dialogFormVisible: false,
+      majoroptions: [{
+        value: 'SWE',
+        label: 'SWE'
+      }, {
+        value: 'DMT',
+        label: 'DMT'
+      }, {
+        value: 'CST',
+        label: 'CST'
+      }, {
+        value: 'AIT',
+        label: 'AIT'
+      },
+        {
+          value: 'ACC',
+          label: 'ACC'
+        },
+        {
+          value: 'FIN',
+          label: 'FIN'
+        },
+        {
+          value: 'ADT',
+          label: 'ADT'
+        },
+        {
+          value: 'CHS',
+          label: 'CHS'
+        },
+        {
+          value: 'CME',
+          label: 'CME'
+        },
+        {
+          value: 'EEE',
+          label: 'EEE'
+        },
+        {
+          value: 'EGE',
+          label: 'EGE'
+        },
+        {
+          value: 'IBU',
+          label: 'IBU'
+        },
+        {
+          value: 'JRN',
+          label: 'JRN'
+        },
+        {
+          value: 'MAT',
+          label: 'MAT'
+        },
+        {
+          value: 'MBT',
+          label: 'MBT'
+        },
+        {
+          value: 'MEC',
+          label: 'MEC'
+        },
+        {
+          value: 'TCM',
+          label: 'TCM'
+        },
+      ],
+      genderoptions: [{
+        value: 'Male',
+        label: 'Male'
+      }, {
+        value: 'Female',
+        label: 'Female'
+      },
+      ],
     }
   },
   created() {

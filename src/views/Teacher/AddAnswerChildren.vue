@@ -36,7 +36,7 @@
               </el-input>
             </li>
             <li v-if="optionValue == 'Judgment Question'">
-              <span>section：</span>
+              <span>Section：</span>
               <el-input
                   placeholder="Please input section"
                   v-model="postJudge.section"
@@ -79,7 +79,7 @@
             </li>
             <li v-if="optionValue == 'Multiple Choice Question'">
               <span>Correct option:</span>
-              <el-select v-model="postChange.rightAnswer" placeholder="Select the correct answer" class="w150">
+              <el-select v-model="postChange.rightanswer" placeholder="Select the correct answer" class="w150">
                 <el-option
                     v-for="item in rights"
                     :key="item.value"
@@ -108,7 +108,7 @@
                   <el-tag type="success">A</el-tag>
                   <el-input
                       placeholder="Input Option A"
-                      v-model="postChange.answerA"
+                      v-model="postChange.answera"
                       clearable="">
                   </el-input>
                 </li>
@@ -116,7 +116,7 @@
                   <el-tag type="success">B</el-tag>
                   <el-input
                       placeholder="Input Option B"
-                      v-model="postChange.answerB"
+                      v-model="postChange.answerb"
                       clearable="">
                   </el-input>
                 </li>
@@ -124,7 +124,7 @@
                   <el-tag type="success">C</el-tag>
                   <el-input
                       placeholder="Input Option C"
-                      v-model="postChange.answerC"
+                      v-model="postChange.answerc"
                       clearable="">
                   </el-input>
                 </li>
@@ -132,7 +132,7 @@
                   <el-tag type="success">D</el-tag>
                   <el-input
                       placeholder="Input Option D"
-                      v-model="postChange.answerD"
+                      v-model="postChange.answerd"
                       clearable="">
                   </el-input>
                 </li>
@@ -254,6 +254,8 @@
 </template>
 
 <script>
+import request from "@/utils/request";
+
 export default {
   data() {
     return {
@@ -330,20 +332,20 @@ export default {
           label: 'D'
         },
       ],
-      paperId: null,
+      paperid: null,
       optionValue: 'Multiple Choice Question', //题型选中值
       subject: '', //试卷名称用来接收路由参数
       postChange: { //选择题提交内容
         subject: '', //试卷名称
         level: '', //难度等级选中值
-        rightAnswer: '', //正确答案选中值
+        rightanswer: '', //正确答案选中值
         section: '', //对应章节
         question: '', //题目
         analysis: '', //解析
-        answerA: '',
-        answerB: '',
-        answerC: '',
-        answerD: '',
+        answera: '',
+        answerb: '',
+        answerc: '',
+        answerd: '',
       },
       postFill: { //填空题提交内容
         subject: '', //试卷名称
@@ -360,9 +362,10 @@ export default {
         section: '', //对应章节
         question: '', //题目
         analysis: '', //解析
+        score:2,
       },
       postPaper: { //考试管理表对应字段
-        paperId: null,
+        paperid: null,
         questionType: null, // 试卷类型 1--选择题  2--填空题   3--判断题
         questionId: null,
       }
@@ -377,7 +380,7 @@ export default {
     // },
     create() {
       this.$axios({
-        url: '/api/item',
+        url: '/paper-manage/item',
         method: 'post',
         data: {
           changeNumber: this.changeNumber,
@@ -389,15 +392,15 @@ export default {
       }).then(res => {
         console.log(res)
         let data = res.data
-        if(data.code==200){
+        if(data.code=="200"){
           setTimeout(() => {
-            this.$router.push({path: '/selectAnswer'})
+            this.$router.push({path: '/exam'})
           },1000)
           this.$message({
             message: data.message,
             type: 'success'
           })
-        }else if(data.code==400){
+        }else if(data.code=="400"){
           this.$message({
             message: data.message,
             type: 'error'
@@ -408,22 +411,22 @@ export default {
     },
     getParams() {
       let subject = this.$route.query.subject //获取试卷名称
-      let paperId = this.$route.query.paperId //获取paperId
-      this.paperId = paperId
+      let paperid = this.$route.query.paperId //获取paperId
+      this.paperid = paperid
       this.subject = subject
-      this.postPaper.paperId = paperId
+      this.postPaper.paperid = paperid
     },
     changeSubmit() { //选择题题库提交
       this.postChange.subject = this.subject
       this.$axios({ //提交数据到选择题题库表
-        url: '/api/MultiQuestion',
+        url: '/multi-question/MultiQuestion',
         method: 'post',
         data: {
           ...this.postChange
         }
       }).then(res => { //添加成功显示提示
         let status = res.data.code
-        if(status == 200) {
+        if(status == "200") {
           this.$message({
             message: 'Added to the paper',
             type: 'success'
@@ -431,12 +434,12 @@ export default {
           this.postChange = {}
         }
       }).then(() => {
-        this.$axios(`/api/multiQuestionId`).then(res => { //获取当前题目的questionId
+        this.$axios(`/multi-question/multiQuestionId`).then(res => { //获取当前题目的questionId
           let questionId = res.data.data.questionId
           this.postPaper.questionId = questionId
           this.postPaper.questionType = 1
           this.$axios({
-            url: '/api/paperManage',
+            url: '/paper-manage/paperManage',
             method: 'Post',
             data: {
               ...this.postPaper
@@ -447,15 +450,9 @@ export default {
     },
     fillSubmit() { //填空题提交
       this.postFill.subject = this.subject
-      this.$axios({
-        url: '/api/fillQuestion',
-        method: 'post',
-        data: {
-          ...this.postFill
-        }
-      }).then(res => {
+      request.post('/fill-question/fillQuestion'+ this.postFill).then(res => {
         let status = res.data.code
-        if(status == 200) {
+        if(status == "200") {
           this.$message({
             message: 'Add to the paper',
             type: 'success'
@@ -463,31 +460,19 @@ export default {
           this.postFill = {}
         }
       }).then(() => {
-        this.$axios(`/api/fillQuestionId`).then(res => { //获取当前题目的questionId
+        request.get(`/fill-question/fillQuestionId`).then(res => { //获取当前题目的questionId
           let questionId = res.data.data.questionId
           this.postPaper.questionId = questionId
           this.postPaper.questionType = 2
-          this.$axios({
-            url: '/api/paperManage',
-            method: 'Post',
-            data: {
-              ...this.postPaper
-            }
-          })
+          request.post('/paper-manage/paperManage'+this.postPaper)
         })
       })
     },
     judgeSubmit() { //判断题提交
       this.postJudge.subject = this.subject
-      this.$axios({
-        url: '/api/judgeQuestion',
-        method: 'post',
-        data: {
-          ...this.postJudge
-        }
-      }).then(res => {
+      request.post('/judge-question'+this.postJudge).then(res => {
         let status = res.data.code
-        if(status == 200) {
+        if(status == "200") {
           this.$message({
             message: 'Add to the paper',
             type: 'success'
@@ -495,17 +480,11 @@ export default {
           this.postJudge = {}
         }
       }).then(() => {
-        this.$axios(`/api/judgeQuestionId`).then(res => { //获取当前题目的questionId
+        request.get(`/judge-question/judgeQuestionId`).then(res => { //获取当前题目的questionId
           let questionId = res.data.data.questionId
           this.postPaper.questionId = questionId
           this.postPaper.questionType = 3
-          this.$axios({
-            url: '/api/paperManage',
-            method: 'Post',
-            data: {
-              ...this.postPaper
-            }
-          })
+          request.post('/paper-manage/paperManage'+this.postPaper)
         })
       })
     }

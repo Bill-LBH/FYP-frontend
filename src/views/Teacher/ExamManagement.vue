@@ -2,7 +2,6 @@
   <div>
 
     <div style="margin: 10px 0">
-      <el-input style="width: 200px" placeholder="Please input exam code" suffix-icon="el-icon-search" v-model="examcode"></el-input>
       <el-input style="width: 200px" placeholder="Please input course name" suffix-icon="el-icon-search" v-model="source"></el-input>
       <el-input style="width: 200px" placeholder="Please input paper id" suffix-icon="el-icon-search" v-model="paperid"></el-input>
       <el-button class="ml-5" type="primary" @click="load">Search</el-button>
@@ -26,21 +25,21 @@
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="examcode" label="Exam code" width="140">
+<!--      <el-table-column prop="examcode" label="Exam code" width="120">-->
+<!--      </el-table-column>-->
+      <el-table-column prop="source" label="Course name" width="180">
       </el-table-column>
-      <el-table-column prop="source" label="Course name" width="140">
+<!--      <el-table-column prop="paperid" label="Paper id" width="100">-->
+<!--      </el-table-column>-->
+      <el-table-column prop="examdate" label="Exam date" width="160">
       </el-table-column>
-      <el-table-column prop="paperid" label="Paper id" width="140">
+      <el-table-column prop="totaltime" label="Total time (minutes)" width="160">
       </el-table-column>
-      <el-table-column prop="examdate" label="Exam date" width="140">
+      <el-table-column prop="grade" label="Grade" width="100">
       </el-table-column>
-      <el-table-column prop="totaltime" label="Total time" width="140">
+      <el-table-column prop="term" label="Term" width="100">
       </el-table-column>
-      <el-table-column prop="grade" label="Grade" width="140">
-      </el-table-column>
-      <el-table-column prop="term" label="Term" width="140">
-      </el-table-column>
-      <el-table-column prop="major" label="Major" width="140">
+      <el-table-column prop="major" label="Major" width="160">
       </el-table-column>
       <el-table-column prop="totalscore" label="Total score" width="140">
       </el-table-column>
@@ -75,9 +74,9 @@
     </div>
     <el-dialog title="New exam Information" :visible.sync="dialogFormVisible" width="30%" >
       <el-form label-width="110px" size="small">
-        <el-form-item label="Exam code">
-          <el-input v-model="form.examcode" autocomplete="off"></el-input>
-        </el-form-item>
+<!--        <el-form-item label="Exam code">-->
+<!--          <el-input v-model="form.examcode" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="Course name">
           <el-input v-model="form.source" autocomplete="off"></el-input>
         </el-form-item>
@@ -89,23 +88,51 @@
             <el-date-picker type="date" placeholder="Select Date" v-model="form.examdate" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
-        <el-form-item label="Total time">
+        <el-form-item label="Total time (minutes)">
           <el-input v-model="form.totaltime" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Grade">
-          <el-input v-model="form.grade" autocomplete="off"></el-input>
+          <el-select v-model="form.grade" placeholder="Please select participated student grade">
+            <el-option
+                v-for="item in gradeoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="Term">
-          <el-input v-model="form.term" autocomplete="off"></el-input>
+        <el-select v-model="form.term" placeholder="Please select exam term">
+          <el-option
+              v-for="item in termoptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+          </el-option>
+        </el-select>
         </el-form-item>
         <el-form-item label="Major">
-          <el-input v-model="form.major" autocomplete="off"></el-input>
+          <el-select v-model="form.major" placeholder="Please select exam major">
+            <el-option
+                v-for="item in majoroptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="Total score">
           <el-input v-model="form.totalscore" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Type">
-          <el-input v-model="form.type" autocomplete="off"></el-input>
+          <el-select v-model="form.type" placeholder="Please select exam type">
+            <el-option
+                v-for="item in typeoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="Tips">
           <el-input v-model="form.tips" autocomplete="off"></el-input>
@@ -130,7 +157,6 @@ export default {
       total :0,
       pageNum: 1,
       pageSize: 2,
-      examcode:"",
       source: "",
       paperid: "",
       examdate:"",
@@ -144,6 +170,144 @@ export default {
       headerBg: 'headerBg',
       form: {},
       dialogFormVisible: false,
+      termoptions: [{
+        value: '2019/09',
+        label: '2019/09'
+      }, {
+        value: '2020/02',
+        label: '2020/02'
+      }, {
+        value: '2020/04',
+        label: '2020/04'
+      }, {
+        value: '2020/09',
+        label: '2020/09'
+      }, {
+        value: '2021/02',
+        label: '2021/02'
+      }, {
+        value: '2021/04',
+        label: '2021/04'
+      }, {
+        value: '2021/09',
+        label: '2021/09'
+      }, {
+        value: '2022/02',
+        label: '2022/02'
+      }, {
+        value: '2022/04',
+        label: '2022/04'
+      }, {
+        value: '2022/09',
+        label: '2022/09'
+      }
+      ],
+      gradeoptions: [{
+        value: '2019/09',
+        label: '2019/09'
+      }, {
+        value: '2020/02',
+        label: '2020/02'
+      }, {
+        value: '2020/04',
+        label: '2020/04'
+      }, {
+        value: '2020/09',
+        label: '2020/09'
+      }, {
+        value: '2021/02',
+        label: '2021/02'
+      }, {
+        value: '2021/04',
+        label: '2021/04'
+      }, {
+        value: '2021/09',
+        label: '2021/09'
+      }, {
+        value: '2022/02',
+        label: '2022/02'
+      }, {
+        value: '2022/04',
+        label: '2022/04'
+      }, {
+        value: '2022/09',
+        label: '2022/09'
+      }
+      ],
+      majoroptions: [{
+        value: 'SWE',
+        label: 'SWE'
+      }, {
+        value: 'DMT',
+        label: 'DMT'
+      }, {
+        value: 'CST',
+        label: 'CST'
+      }, {
+        value: 'AIT',
+        label: 'AIT'
+      },
+        {
+          value: 'ACC',
+          label: 'ACC'
+        },
+        {
+          value: 'FIN',
+          label: 'FIN'
+        },
+        {
+          value: 'ADT',
+          label: 'ADT'
+        },
+        {
+          value: 'CHS',
+          label: 'CHS'
+        },
+        {
+          value: 'CME',
+          label: 'CME'
+        },
+        {
+          value: 'EEE',
+          label: 'EEE'
+        },
+        {
+          value: 'EGE',
+          label: 'EGE'
+        },
+        {
+          value: 'IBU',
+          label: 'IBU'
+        },
+        {
+          value: 'JRN',
+          label: 'JRN'
+        },
+        {
+          value: 'MAT',
+          label: 'MAT'
+        },
+        {
+          value: 'MBT',
+          label: 'MBT'
+        },
+        {
+          value: 'MEC',
+          label: 'MEC'
+        },
+        {
+          value: 'TCM',
+          label: 'TCM'
+        },
+      ],
+      typeoptions: [{
+        value: 'Open book',
+        label: 'Open book'
+      }, {
+        value: 'Close book',
+        label: 'Close book'
+      },
+      ],
     }
   },
   created() {
@@ -156,9 +320,8 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          examcode: this.examcode,
-          source: this.source,
           paperid: this.paperid,
+          source: this.source,
         }
       }).then(res => {
         console.log(res)
