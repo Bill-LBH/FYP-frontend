@@ -7,7 +7,7 @@
         <section class="append">
           <ul>
             <li>
-              <span>Question type:</span>
+              <span>Type:</span>
               <el-select v-model="optionValue" placeholder="Please select question type" class="w150">
                 <el-option
                     v-for="item in options"
@@ -17,34 +17,61 @@
                 </el-option>
               </el-select>
             </li>
-            <li v-if="optionValue == 'Multiple Choice Question'">
-              <span>Section：</span>
+            <li v-if="optionValue == 'Multiple Choice'">
+              <span>Section:</span>
               <el-input
-                  placeholder="Please input section"
+                  placeholder="Type in section"
                   v-model="postChange.section"
                   class="w150"
                   clearable>
               </el-input>
             </li>
-            <li v-if="optionValue == 'Fill-in-the-blank Question'">
-              <span>Section：</span>
+            <li v-if="optionValue == 'Multiple Choice'">
+              <span>Score:</span>
               <el-input
-                  placeholder="Please input section"
+                  placeholder="Type in score"
+                  v-model="postChange.score"
+                  class="w150"
+                  clearable>
+              </el-input>
+            </li>
+            <li v-if="optionValue == 'Fill-in-the-blank'">
+              <span>Section:</span>
+              <el-input
+                  placeholder="Type in section"
                   v-model="postFill.section"
                   class="w150"
                   clearable>
               </el-input>
             </li>
-            <li v-if="optionValue == 'Judgment Question'">
-              <span>Section：</span>
+            <li v-if="optionValue == 'Fill-in-the-blank'">
+              <span>Score:</span>
               <el-input
-                  placeholder="Please input section"
+                  placeholder="Type in score"
+                  v-model="postFill.score"
+                  class="w150"
+                  clearable>
+              </el-input>
+            </li>
+            <li v-if="optionValue == 'Judgment'">
+              <span>Section:</span>
+              <el-input
+                  placeholder="Type in section"
                   v-model="postJudge.section"
                   class="w150"
                   clearable>
               </el-input>
             </li>
-            <li v-if="optionValue == 'Multiple Choice Question'">
+            <li v-if="optionValue == 'Judgment'">
+              <span>Score:</span>
+              <el-input
+                  placeholder="Type in score"
+                  v-model="postJudge.score"
+                  class="w150"
+                  clearable>
+              </el-input>
+            </li>
+            <li v-if="optionValue == 'Multiple Choice'">
               <span>Difficulty Level:</span>
               <el-select v-model="postChange.level" placeholder="Select difficulty level" class="w150">
                 <el-option
@@ -55,7 +82,7 @@
                 </el-option>
               </el-select>
             </li>
-            <li v-if="optionValue == 'Fill-in-the-blank Question'">
+            <li v-if="optionValue == 'Fill-in-the-blank'">
               <span>Difficulty Level:</span>
               <el-select v-model="postFill.level" placeholder="Select difficulty level" class="w150">
                 <el-option
@@ -66,7 +93,7 @@
                 </el-option>
               </el-select>
             </li>
-            <li v-if="optionValue == 'Judgment Question'">
+            <li v-if="optionValue == 'Judgment'">
               <span>Difficulty Level:</span>
               <el-select v-model="postJudge.level" placeholder="Select difficulty level" class="w150">
                 <el-option
@@ -77,7 +104,7 @@
                 </el-option>
               </el-select>
             </li>
-            <li v-if="optionValue == 'Multiple Choice Question'">
+            <li v-if="optionValue == 'Multiple Choice'">
               <span>Correct option:</span>
               <el-select v-model="postChange.rightanswer" placeholder="Select the correct answer" class="w150">
                 <el-option
@@ -90,7 +117,7 @@
             </li>
           </ul>
           <!-- 选择题部分 -->
-          <div class="change" v-if="optionValue == 'Multiple Choice Question'">
+          <div class="change" v-if="optionValue == 'Multiple Choice'">
             <div class="title">
               <el-tag>Question:</el-tag><span>Enter the title in the input box below, such as - The role of DNS servers and DHCP servers is ()</span>
               <el-input
@@ -139,7 +166,7 @@
               </ul>
             </div>
             <div class="title">
-              <el-tag>Explanation:</el-tag><span>Enter explanation in the input box below</span>
+              <el-tag size="small">Explanation</el-tag><span>Enter explanation in the input box below</span>
               <el-input
                   type="textarea"
                   rows="4"
@@ -154,9 +181,9 @@
             </div>
           </div>
           <!-- 填空题部分 -->
-          <div class="change fill" v-if="optionValue == 'Fill-in-the-blank Question'">
+          <div class="change fill" v-if="optionValue == 'Fill-in-the-blank'">
             <div class="title">
-              <el-tag>Question:</el-tag><span>Enter the question, shaped as - From the perspective of the composition of computer network systems, computer networks can be divided into () and (). Note that the candidate's answer section must be enclosed in parentheses.</span>
+              <el-tag size="small">Question</el-tag><span>Enter the question, shaped as - From the perspective of the composition of computer network systems, computer networks can be divided into () and (). Note that the candidate's answer section must be enclosed in parentheses.</span>
               <el-input
                   type="textarea"
                   rows="4"
@@ -167,11 +194,11 @@
               </el-input>
             </div>
             <div class="fillAnswer">
-              <el-tag>Correct answer:</el-tag>
+              <el-tag size="small">Correct answer</el-tag>
               <el-input v-model="postFill.answer"></el-input>
             </div>
             <div class="title analysis">
-              <el-tag type="success">Explanation:</el-tag><span>Enter the explanation in the input box below</span>
+              <el-tag type="success" size="small">Explanation</el-tag><span>Enter the explanation in the input box below</span>
               <el-input
                   type="textarea"
                   rows="4"
@@ -186,9 +213,9 @@
             </div>
           </div>
           <!-- 判断题 -->
-          <div class="change judge" v-if="optionValue == 'Judgment Question'">
+          <div class="change judge" v-if="optionValue == 'Judgment'">
             <div class="title">
-              <el-tag>Question:</el-tag><span>Enter the question in the input box below</span>
+              <el-tag size="small">Question</el-tag><span>Enter the question in the input box below</span>
               <el-input
                   type="textarea"
                   rows="4"
@@ -203,7 +230,7 @@
               <el-radio v-model="postJudge.answer" label="F">False</el-radio>
             </div>
             <div class="title">
-              <el-tag>Evaluation:</el-tag><span>Enter the explanation in the input box below</span>
+              <el-tag size="small">Evaluation</el-tag><span>Enter the explanation in the input box below</span>
               <el-input
                   type="textarea"
                   rows="4"
@@ -265,16 +292,16 @@ export default {
       activeName: 'first',  //活动选项卡
       options: [ //题库类型
         {
-          value: 'Multiple Choice Question',
-          label: 'Multiple Choice Question'
+          value: 'Multiple Choice',
+          label: 'Multiple Choice'
         },
         {
-          value: 'Fill-in-the-blank Question',
-          label: 'Fill-in-the-blank Question'
+          value: 'Fill-in-the-blank',
+          label: 'Fill-in-the-blank'
         },
         {
-          value: 'Judgment Question',
-          label: 'Judgment Question'
+          value: 'Judgment',
+          label: 'Judgment'
         },
       ],
       difficulty: [ //试题难度
@@ -333,7 +360,7 @@ export default {
         },
       ],
       paperid: null,
-      optionValue: 'Multiple Choice Question', //题型选中值
+      optionValue: 'Multiple Choice', //题型选中值
       subject: '', //试卷名称用来接收路由参数
       postChange: { //选择题提交内容
         subject: '', //试卷名称
@@ -342,6 +369,7 @@ export default {
         section: '', //对应章节
         question: '', //题目
         analysis: '', //解析
+        score:'',
         answera: '',
         answerb: '',
         answerc: '',
@@ -354,6 +382,7 @@ export default {
         section: '', //对应章节
         question: '', //题目
         analysis: '', //解析
+        score:'',
       },
       postJudge: { //判断题提交内容
         subject: '', //试卷名称
@@ -362,12 +391,12 @@ export default {
         section: '', //对应章节
         question: '', //题目
         analysis: '', //解析
-        score:2,
+        score:'',
       },
       postPaper: { //考试管理表对应字段
         paperid: null,
-        questionType: null, // 试卷类型 1--选择题  2--填空题   3--判断题
-        questionId: null,
+        questiontype: null, // 试卷类型 1--选择题  2--填空题   3--判断题
+        questionid: null,
       }
     };
   },
@@ -386,13 +415,13 @@ export default {
           changeNumber: this.changeNumber,
           fillNumber: this.fillNumber,
           judgeNumber: this.judgeNumber,
-          paperId: this.paperId,
+          paperid: this.paperid,
           subject: 'Network' //题目数量太少，指定为计算机网络出题
         }
       }).then(res => {
         console.log(res)
         let data = res.data
-        if(data.code=="200"){
+        if(data.code==200){
           setTimeout(() => {
             this.$router.push({path: '/exam'})
           },1000)
@@ -400,7 +429,7 @@ export default {
             message: data.message,
             type: 'success'
           })
-        }else if(data.code=="400"){
+        }else if(data.code==400){
           this.$message({
             message: data.message,
             type: 'error'
@@ -418,41 +447,27 @@ export default {
     },
     changeSubmit() { //选择题题库提交
       this.postChange.subject = this.subject
-      this.$axios({ //提交数据到选择题题库表
-        url: '/multi-question/MultiQuestion',
-        method: 'post',
-        data: {
-          ...this.postChange
-        }
-      }).then(res => { //添加成功显示提示
-        let status = res.data.code
-        if(status == "200") {
-          this.$message({
-            message: 'Added to the paper',
-            type: 'success'
-          })
+      request.post('/multi-question/MultiQuestion',this.postChange).then(res => { //添加成功显示提示
+        let status = res.code
+        console.log(status)
+        if(status == 200) {
+          this.$message.success("Add to paper successfully")
           this.postChange = {}
         }
       }).then(() => {
-        this.$axios(`/multi-question/multiQuestionId`).then(res => { //获取当前题目的questionId
-          let questionId = res.data.data.questionId
-          this.postPaper.questionId = questionId
-          this.postPaper.questionType = 1
-          this.$axios({
-            url: '/paper-manage/paperManage',
-            method: 'Post',
-            data: {
-              ...this.postPaper
-            }
-          })
+        request.get(`/multi-question/multiQuestionId`).then(res => { //获取当前题目的questionId
+          let questionid = res.data.questionid
+          this.postPaper.questionid = questionid
+          this.postPaper.questiontype = 1
+          request.post('/paper-manage/paperManage',this.postPaper)
         })
       })
     },
     fillSubmit() { //填空题提交
       this.postFill.subject = this.subject
-      request.post('/fill-question/fillQuestion'+ this.postFill).then(res => {
-        let status = res.data.code
-        if(status == "200") {
+      request.post('/fill-question/fillQuestion', this.postFill).then(res => {
+        let status = res.code
+        if(status == 200) {
           this.$message({
             message: 'Add to the paper',
             type: 'success'
@@ -461,18 +476,18 @@ export default {
         }
       }).then(() => {
         request.get(`/fill-question/fillQuestionId`).then(res => { //获取当前题目的questionId
-          let questionId = res.data.data.questionId
-          this.postPaper.questionId = questionId
-          this.postPaper.questionType = 2
-          request.post('/paper-manage/paperManage'+this.postPaper)
+          let questionid = res.data.questionid
+          this.postPaper.questionid = questionid
+          this.postPaper.questiontype = 2
+          request.post('/paper-manage/paperManage', this.postPaper)
         })
       })
     },
     judgeSubmit() { //判断题提交
       this.postJudge.subject = this.subject
-      request.post('/judge-question'+this.postJudge).then(res => {
-        let status = res.data.code
-        if(status == "200") {
+      request.post('/judge-question/judge',this.postJudge).then(res => {
+        let status = res.code
+        if(status == 200) {
           this.$message({
             message: 'Add to the paper',
             type: 'success'
@@ -481,10 +496,11 @@ export default {
         }
       }).then(() => {
         request.get(`/judge-question/judgeQuestionId`).then(res => { //获取当前题目的questionId
-          let questionId = res.data.data.questionId
-          this.postPaper.questionId = questionId
-          this.postPaper.questionType = 3
-          request.post('/paper-manage/paperManage'+this.postPaper)
+          let questionid = res.data.questionid
+          console.log(questionid)
+          this.postPaper.questionid = questionid
+          this.postPaper.questiontype = 3
+          request.post('/paper-manage/paperManage', this.postPaper)
         })
       })
     }
@@ -505,8 +521,8 @@ export default {
         width: 6%;
       }
       .w150 {
-        margin-left: 20px;
-        width: 7%;
+        margin-left: 30px;
+        width: 5%;
       }
     }
   }
@@ -521,8 +537,9 @@ export default {
     ul {
       display: flex;
       align-items: center;
+      list-style-type:none;
       li {
-        margin-right: 20px;
+        margin-right: 25px;
       }
     }
     .change {
@@ -552,7 +569,7 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 98%;
+          width: 100%;
           margin: 10px 0px;
           span {
             margin-right: 20px;
@@ -574,7 +591,7 @@ export default {
           margin-right: 6px;
         }
         .el-input {
-          width: 91% !important;
+          width: 100% !important;
         }
       }
       .analysis {
@@ -589,13 +606,13 @@ export default {
       }
     }
     .w150 {
-      width: 150px;
+      width: 200px;
     }
-    li:nth-child(2) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    //li:nth-child(2) {
+    //  display: flex;
+    //  align-items: center;
+    //  justify-content: center;
+    //}
   }
 }
 </style>

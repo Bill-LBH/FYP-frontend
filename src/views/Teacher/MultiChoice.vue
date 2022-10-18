@@ -255,7 +255,7 @@ export default {
       this.dialogFormVisible = true
     },
     del(id) {
-      request.delete("/multi-question/" + id).then(res => {
+      request.delete(`/multi-question/1/${id}`).then(res => {
         if (res) {
           this.$message.success("Delete successfully")
           this.load()

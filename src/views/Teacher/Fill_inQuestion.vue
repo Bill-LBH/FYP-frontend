@@ -2,8 +2,10 @@
   <div>
 
     <div style="margin: 10px 0">
-      <el-input style="width: 200px" placeholder="Please input subject" suffix-icon="el-icon-search" v-model="subject"></el-input>
-      <el-input style="width: 200px" placeholder="Please input section" suffix-icon="el-icon-search" v-model="section"></el-input>
+      <el-input style="width: 200px" placeholder="Please input subject" suffix-icon="el-icon-search"
+                v-model="subject"></el-input>
+      <el-input style="width: 200px" placeholder="Please input section" suffix-icon="el-icon-search"
+                v-model="section"></el-input>
       <el-button class="ml-5" type="primary" @click="load">Search</el-button>
       <el-button class="el-alert--warning" type="primary" @click="reset">Reset</el-button>
     </div>
@@ -23,10 +25,11 @@
       </el-popconfirm>
     </div>
 
-    <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
+    <el-table :data="tableData" border stripe :header-cell-class-name="headerBg"
+              @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-<!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
-<!--      </el-table-column>-->
+      <!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
+      <!--      </el-table-column>-->
       <el-table-column prop="subject" label="Subject" width="140">
       </el-table-column>
       <el-table-column prop="question" label="Question" width="140">
@@ -41,7 +44,7 @@
       </el-table-column>
       <el-table-column prop="level" label="Level" width="140">
       </el-table-column>
-      <el-table-column label="Operation"  width="200" align="center">
+      <el-table-column label="Operation" width="200" align="center">
         <template v-slot="scope">
           <el-button type="success" @click="handleEdit(scope.row)">Edit <i class="el-icon-edit"></i></el-button>
           <el-popconfirm
@@ -70,11 +73,11 @@
           :total="total">
       </el-pagination>
     </div>
-    <el-dialog title="New fill in question" :visible.sync="dialogFormVisible" width="30%" >
+    <el-dialog title="New fill in question" :visible.sync="dialogFormVisible" width="30%">
       <el-form label-width="100px" size="small">
-<!--        <el-form-item label="Question Id">-->
-<!--          <el-input v-model="form.questionid" autocomplete="off"></el-input>-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="Question Id">-->
+        <!--          <el-input v-model="form.questionid" autocomplete="off"></el-input>-->
+        <!--        </el-form-item>-->
         <el-form-item label="Subject">
           <el-input v-model="form.subject" autocomplete="off"></el-input>
         </el-form-item>
@@ -117,19 +120,19 @@ import request from "@/utils/request";
 
 export default {
   name: "Fill_in",
-  data(){
-    return{
+  data() {
+    return {
       tableData: [],
-      total :0,
+      total: 0,
       pageNum: 1,
       pageSize: 2,
       subject: "",
       question: "",
-      answer:"",
-      analysis:"",
-      score:"",
-      section:"",
-      level:"",
+      answer: "",
+      analysis: "",
+      score: "",
+      section: "",
+      level: "",
       headerBg: 'headerBg',
       form: {},
       dialogFormVisible: false,
@@ -208,7 +211,7 @@ export default {
       this.dialogFormVisible = true
     },
     del(id) {
-      request.delete("/fill-question/" + id).then(res => {
+      request.delete(`/fill-question/2/${id}`).then(res => {
         if (res) {
           this.$message.success("Delete successfully")
           this.load()

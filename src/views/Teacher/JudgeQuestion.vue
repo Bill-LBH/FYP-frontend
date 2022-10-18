@@ -232,7 +232,7 @@ export default {
       this.dialogFormVisible = true
     },
     del(id) {
-      request.delete("/judge-question/" + id).then(res => {
+      request.delete("/judge-question/3/"+id).then(res => {
         if (res) {
           this.$message.success("Delete successfully")
           this.load()

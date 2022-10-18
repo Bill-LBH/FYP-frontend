@@ -29,8 +29,8 @@
 <!--      </el-table-column>-->
       <el-table-column prop="source" label="Course name" width="180">
       </el-table-column>
-<!--      <el-table-column prop="paperid" label="Paper id" width="100">-->
-<!--      </el-table-column>-->
+      <el-table-column prop="paperid" label="Paper id" width="100">
+      </el-table-column>
       <el-table-column prop="examdate" label="Exam date" width="160">
       </el-table-column>
       <el-table-column prop="totaltime" label="Total time (minutes)" width="160">
