@@ -21,23 +21,27 @@
       >
         <el-button type="danger" slot="reference">Batch delete <i class="el-icon-remove-outline"></i></el-button>
       </el-popconfirm>
+      <el-upload action="http://localhost:9090/judge-question/import" :show-file-list="false" accept="xlsx" :on-success="handleExcelImportSuccess" style="display: inline-block">
+        <el-button type="primary" class="ml-5">Import <i class="el-icon-bottom"></i></el-button>
+      </el-upload>
+      <el-button type="primary" @click="exp" class="ml-5">Export <i class="el-icon-top"></i></el-button>
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
 <!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
 <!--      </el-table-column>-->
-      <el-table-column prop="subject" label="Subject" width="140">
+      <el-table-column prop="subject" label="Subject" width="170">
       </el-table-column>
-      <el-table-column prop="question" label="Question" width="140">
+      <el-table-column prop="question" label="Question" width="300">
       </el-table-column>
-      <el-table-column prop="answer" label="Answer" width="140">
+      <el-table-column prop="answer" label="Answer" width="80">
       </el-table-column>
-      <el-table-column prop="analysis" label="Analysis" width="140">
+      <el-table-column prop="analysis" label="Analysis" width="160">
       </el-table-column>
-      <el-table-column prop="score" label="Score" width="140">
+      <el-table-column prop="score" label="Score" width="80">
       </el-table-column>
-      <el-table-column prop="section" label="Section" width="140">
+      <el-table-column prop="section" label="Section" width="120">
       </el-table-column>
       <el-form-item label="Level">
         <el-select v-model="form.level" placeholder="Please select difficulty of this question">
@@ -247,7 +251,7 @@ export default {
     },
     delBatch() {
       let ids = this.multipleSelection.map(v => v.questionid)  // [{}, {}, {}] => [1,2,3]
-      request.post("/judge-question/del/batch", ids).then(res => {
+      request.post("/judge-question/del/batch/", ids).then(res => {
         if (res) {
           this.$message.success("Batch delete successfully")
           this.load()
@@ -255,6 +259,13 @@ export default {
           this.$message.error("Batch delete failed")
         }
       })
+    },
+    handleExcelImportSuccess() {
+      this.$message.success("Import successfully")
+      this.load()
+    },
+    exp() {
+      window.open("http://localhost:9090/judge-question/export")
     },
     handleSizeChange(pageSize) {
       console.log(pageSize)

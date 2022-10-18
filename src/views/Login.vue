@@ -1,7 +1,9 @@
 <template>
   <div class="wrapper">
-    <div style="margin: 200px auto; background-color: #fff; width: 350px; height: 320px; padding: 20px; border-radius: 10px">
-      <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>Online exam system</b></div>
+    <div style="margin: 200px auto; background-color: #fff; width: 360px; height: 340px; padding: 20px; border-radius: 10px">
+      <div style="margin: 20px 0; text-align: center; font-size: 24px; color: darkorange">
+        <i class="el-icon-reading"></i>
+        <b style="margin-left: 10px">Online exam system</b></div>
       <el-form :model="user" :rules="rules" ref="studentForm">
         <el-form-item prop="id">
           <el-input size="medium" style="margin: 10px 0" prefix-icon="el-icon-user" v-model="user.id"></el-input>
@@ -9,15 +11,15 @@
         <el-form-item prop="password">
           <el-input size="medium" style="margin: 10px 0" prefix-icon="el-icon-lock" show-password v-model="user.password"></el-input>
         </el-form-item>
-        <div style="margin-left: 60px">
+        <div style="text-align: center " >
           <el-radio-group v-model="identity">
-            <el-radio :label="1">Student</el-radio>
-            <el-radio :label="2">Teacher</el-radio>
+            <el-radio :label="1" style="margin-right: 40px;color: lightslategray">Student</el-radio>
+            <el-radio :label="2"style="margin-left: 40px;color: lightslategray">Teacher</el-radio>
           </el-radio-group>
         </div>
-        <el-form-item style="margin: 10px 0; text-align: right">
-          <el-button type="primary" size="small"  autocomplete="off" @click="login">Login</el-button>
-          <el-button type="warning" size="small"  autocomplete="off">Register</el-button>
+        <el-form-item style="margin: 15px 15px; text-align: center">
+          <el-button style="margin-right: 30px" type="primary" size="medium"  autocomplete="off" @click="login">Login</el-button>
+          <el-button style="margin-left: 30px" type="warning" size="medium"  autocomplete="off">Register</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -80,7 +82,7 @@ export default {
 <style>
 .wrapper {
   height: 100vh;
-  background-image: linear-gradient(to bottom right, #FC466B , #3F5EFB);
+  background-image: linear-gradient(to bottom right, #fffb0d , #3F5EFB);
   overflow: hidden;
 
 }

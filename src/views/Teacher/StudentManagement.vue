@@ -22,6 +22,10 @@
     >
       <el-button type="danger" slot="reference">Batch delete <i class="el-icon-remove-outline"></i></el-button>
     </el-popconfirm>
+    <el-upload action="http://localhost:9090/student/import" :show-file-list="false" accept="xlsx" :on-success="handleExcelImportSuccess" style="display: inline-block">
+      <el-button type="primary" class="ml-5">Import <i class="el-icon-bottom"></i></el-button>
+    </el-upload>
+    <el-button type="primary" @click="exp" class="ml-5">Export <i class="el-icon-top"></i></el-button>
   </div>
 
   <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
@@ -91,15 +95,6 @@
         </el-option>
       </el-select>
     </el-form-item>
-      <el-form-item label="Address">
-        <el-input v-model="form.address" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="Email">
-        <el-input v-model="form.email" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="Phone">
-        <el-input v-model="form.phone" autocomplete="off"></el-input>
-      </el-form-item>
       <el-form-item label="Major">
         <el-select v-model="form.major" placeholder="Please select student major">
           <el-option
@@ -261,6 +256,13 @@ export default {
     handleAdd() {
       this.dialogFormVisible = true
       this.form = {}
+    },
+    handleExcelImportSuccess() {
+      this.$message.success("Import successful")
+      this.load()
+    },
+    exp() {
+      window.open("http://localhost:9090/student/export")
     },
     save() {
       request.post("/student", this.form).then(res => {

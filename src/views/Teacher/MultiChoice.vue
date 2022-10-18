@@ -21,6 +21,10 @@
       >
         <el-button type="danger" slot="reference">Batch delete <i class="el-icon-remove-outline"></i></el-button>
       </el-popconfirm>
+      <el-upload action="http://localhost:9090/multi-question/import" :show-file-list="false" accept="xlsx" :on-success="handleExcelImportSuccess" style="display: inline-block">
+        <el-button type="primary" class="ml-5">Import <i class="el-icon-bottom"></i></el-button>
+      </el-upload>
+      <el-button type="primary" @click="exp" class="ml-5">Export <i class="el-icon-top"></i></el-button>
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
@@ -63,6 +67,7 @@
           >
             <el-button type="danger" slot="reference">Delete <i class="el-icon-remove-outline"></i></el-button>
           </el-popconfirm>
+
         </template>
       </el-table-column>
     </el-table>
@@ -270,7 +275,7 @@ export default {
     },
     delBatch() {
       let ids = this.multipleSelection.map(v => v.questionid)  // [{}, {}, {}] => [1,2,3]
-      request.post("/multi-question/del/batch", ids).then(res => {
+      request.post("/multi-question/del/batch/",ids).then(res => {
         if (res) {
           this.$message.success("Batch delete successfully")
           this.load()
@@ -278,6 +283,13 @@ export default {
           this.$message.error("Batch delete failed")
         }
       })
+    },
+    handleExcelImportSuccess() {
+      this.$message.success("Import successfully")
+      this.load()
+    },
+    exp() {
+      window.open("http://localhost:9090/multi-question/export")
     },
     handleSizeChange(pageSize) {
       console.log(pageSize)
