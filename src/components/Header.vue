@@ -1,7 +1,7 @@
 <template>
   <div style="font-size: 12px; border-bottom: 1px solid #ccc; line-height: 60px; display: flex">
   <div style="flex: 1">
-    <span :class="collapseBtnClass" style="cursor: pointer; font-size: 20px" @click="collapse"></span>
+    <span :class="collapseBtnClass" style="cursor: pointer; font-size: 20px" @click="Collapse"></span>
       <el-breadcrumb separator="/" style="display: inline-block; margin-left: 10px">
         <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
         <el-breadcrumb-item>{{ currentPathName }}</el-breadcrumb-item>
@@ -28,7 +28,13 @@ export default {
   name: "Header",
   props: {
     collapseBtnClass: String,
-    collapse: Boolean,
+    collapse: {
+      type: Function,
+      default: () => {
+        return Function;
+      },
+    },
+
   },
 
   computed: {
@@ -47,6 +53,9 @@ export default {
       this.$router.push("/login")
       localStorage.removeItem("teacher")
       this.$message.success("Exit successfully")
+    },
+    Collapse(){
+      this.collapse();
     }
   }
 }

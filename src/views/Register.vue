@@ -1,11 +1,8 @@
 <template>
   <div class="wrapper">
     <div style="margin: 100px auto; background-color: #fff; width: 350px; height: 400px; padding: 20px; border-radius: 10px">
-      <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>注 册</b></div>
+      <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>Register</b></div>
       <el-form :model="user" :rules="rules" ref="userForm">
-        <el-form-item prop="username">
-          <el-input placeholder="请输入账号" size="medium" style="margin: 5px 0" prefix-icon="el-icon-user" v-model="user.username"></el-input>
-        </el-form-item>
         <el-form-item prop="password">
           <el-input placeholder="请输入密码" size="medium" style="margin: 5px 0" prefix-icon="el-icon-lock" show-password v-model="user.password"></el-input>
         </el-form-item>
@@ -28,10 +25,6 @@ export default {
     return {
       user: {},
       rules: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }

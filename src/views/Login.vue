@@ -14,12 +14,12 @@
         <div style="text-align: center " >
           <el-radio-group v-model="identity">
             <el-radio :label="1" style="margin-right: 40px;color: lightslategray">Student</el-radio>
-            <el-radio :label="2"style="margin-left: 40px;color: lightslategray">Teacher</el-radio>
+            <el-radio :label="2" style="margin-left: 40px;color: lightslategray">Teacher</el-radio>
           </el-radio-group>
         </div>
         <el-form-item style="margin: 15px 15px; text-align: center">
           <el-button style="margin-right: 30px" type="primary" size="medium"  autocomplete="off" @click="login">Login</el-button>
-          <el-button style="margin-left: 30px" type="warning" size="medium"  autocomplete="off">Register</el-button>
+          <el-button style="margin-left: 30px" type="warning" size="medium"  autocomplete="off" @click="register">Register</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -32,15 +32,15 @@ export default {
   data() {
     return {
       user: {},
-      identity:'',
+      identity:'3',
       rules: {
         id: [
           { required: true, message: 'Please input user ID', trigger: 'blur' },
-          { min: 1, max: 15, message: 'Length from 1 to 15 characters', trigger: 'blur' }
+          { min: 10, max: 10, message: 'Length is characters', trigger: 'blur' }
         ],
         password: [
           { required: true, message: 'Please input password', trigger: 'blur' },
-          { min: 1, max: 16, message: 'Length from 1 to 16 characters', trigger: 'blur' }
+          { min: 5, max: 16, message: 'Length from 5 to 16 characters', trigger: 'blur' }
         ],
       }
     }
@@ -49,8 +49,7 @@ export default {
     login() {
       this.$refs['studentForm'].validate((valid) => {
         if (valid) {  // 表单校验合法
-          console.log(this.identity)
-          if(this.identity="1"){
+          if(this.identity==="1"){
 
             this.request.post("/student/login", this.user).then(res => {
               if(!res) {
@@ -60,7 +59,7 @@ export default {
               }
             })
           }
-          else if(this.identity="2"){
+          else if(this.identity==="2"){
             this.request.post("/teacher/login", this.user).then(res => {
               if(!res) {
                 this.$message.error("Teacher name or password error")
@@ -70,12 +69,31 @@ export default {
             })
 
           }
+          else if(this.identity==="3"){
+            this.$message.error("Please select user type")
+          }
         } else {
           return false;
         }
       });
-    }
-  }
+    },
+    register(){
+      console.log(this.identity)
+      if(this.identity==="1"){
+            this.$router.push('/verify')
+          }
+      else if(this.identity==="2"){
+        this.$message.error("Teacher can't register the account")
+      }
+
+      else if(this.identity==="3"){
+        this.$message.error("Please select user type")
+      }
+      else {
+        return false;
+      }
+      }
+        }
 }
 </script>
 

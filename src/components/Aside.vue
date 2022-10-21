@@ -12,8 +12,8 @@
       <b style="color: white" v-show="logoTextShow">Online Exam</b>
     </div>
     <el-menu-item index="/home">
+      <i class="el-icon-house"></i>
       <template slot="title">
-        <i class="el-icon-house"></i>
         <span slot="title">Homepage</span>
       </template>
     </el-menu-item>
@@ -55,14 +55,14 @@
       </el-menu-item>
     </el-submenu>
     <el-menu-item index="/score">
+      <i class="el-icon-notebook-1"></i>
       <template slot="title">
-        <i class="el-icon-notebook-1"></i>
         <span slot="title">Grade</span>
       </template>
     </el-menu-item>
     <el-menu-item index="/student">
+      <i class="el-icon-user-solid"></i>
       <template slot="title">
-        <i class="el-icon-user-solid"></i>
         <span slot="title">Student</span>
       </template>
     </el-menu-item>
