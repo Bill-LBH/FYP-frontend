@@ -49,7 +49,7 @@ export default {
     login() {
       this.$refs['studentForm'].validate((valid) => {
         if (valid) {  // 表单校验合法
-          if(this.identity==="1"){
+          if(this.identity=="1"){
 
             this.request.post("/student/login", this.user).then(res => {
               if(!res) {
@@ -59,7 +59,7 @@ export default {
               }
             })
           }
-          else if(this.identity==="2"){
+          else if(this.identity=="2"){
             this.request.post("/teacher/login", this.user).then(res => {
               if(!res) {
                 this.$message.error("Teacher name or password error")
@@ -69,7 +69,7 @@ export default {
             })
 
           }
-          else if(this.identity==="3"){
+          else if(this.identity=="3"){
             this.$message.error("Please select user type")
           }
         } else {
@@ -79,14 +79,15 @@ export default {
     },
     register(){
       console.log(this.identity)
-      if(this.identity==="1"){
+      if(this.identity=="1"){
+        console.log(this.identity)
             this.$router.push('/verify')
           }
-      else if(this.identity==="2"){
+      else if(this.identity=="2"){
         this.$message.error("Teacher can't register the account")
       }
 
-      else if(this.identity==="3"){
+      else if(this.identity=="3"){
         this.$message.error("Please select user type")
       }
       else {

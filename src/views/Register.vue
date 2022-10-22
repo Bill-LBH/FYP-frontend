@@ -1,17 +1,26 @@
 <template>
   <div class="wrapper">
-    <div style="margin: 100px auto; background-color: #fff; width: 350px; height: 400px; padding: 20px; border-radius: 10px">
+    <div style="margin: 100px auto; background-color: #fff; width: 350px; height: 500px; padding: 20px; border-radius: 10px">
       <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>Register</b></div>
-      <el-form :model="user" :rules="rules" ref="userForm">
+      <el-form :model="student" :rules="rules" ref="studentForm">
         <el-form-item prop="password">
-          <el-input placeholder="请输入密码" size="medium" style="margin: 5px 0" prefix-icon="el-icon-lock" show-password v-model="user.password"></el-input>
+          <el-input placeholder="Please input password" size="medium" style="margin: 5px 0" prefix-icon="el-icon-lock" show-password v-model="student.password"></el-input>
         </el-form-item>
         <el-form-item prop="confirmPassword">
-          <el-input placeholder="请确认密码" size="medium" style="margin: 5px 0" prefix-icon="el-icon-lock" show-password v-model="user.confirmPassword"></el-input>
+          <el-input placeholder="Please confirm password" size="medium" style="margin: 5px 0" prefix-icon="el-icon-lock" show-password v-model="student.confirmPassword"></el-input>
+        </el-form-item>
+        <el-form-item prop="address">
+          <el-input placeholder="Please input your address" size="medium" style="margin: 5px 0" prefix-icon="el-icon-s-home"  v-model="student.address"></el-input>
+        </el-form-item>
+        <el-form-item prop="email">
+          <el-input placeholder="Please input your email" size="medium" style="margin: 5px 0" prefix-icon="el-icon-message"  v-model="student.email"></el-input>
+        </el-form-item>
+        <el-form-item prop="phone">
+          <el-input placeholder="Please input your phone" size="medium" style="margin: 5px 0" prefix-icon="el-icon-mobile"  v-model="student.phone"></el-input>
         </el-form-item>
         <el-form-item style="margin: 5px 0; text-align: right">
-          <el-button type="primary" size="small"  autocomplete="off" @click="login">注册</el-button>
-          <el-button type="warning" size="small"  autocomplete="off" @click="$router.push('/login')">返回登录</el-button>
+          <el-button type="primary" size="small"  autocomplete="off" @click="register">Register</el-button>
+          <el-button type="warning" size="small"  autocomplete="off" @click="$router.push('/login')">Back to login</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,33 +29,46 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
-      user: {},
+      student: {id:''},
       rules: {
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+          { required: true, message: 'Please input password', trigger: 'blur' },
+          { min: 1, max: 20, message: 'Length is between 1 and 20 characteristics', trigger: 'blur' }
         ],
         confirmPassword: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+          { required: true, message: 'Please input password', trigger: 'blur' },
+          { min: 1, max: 20, message: 'Length is between 1 and 20 characteristics', trigger: 'blur' }
+        ],
+        address: [
+          { required: true, message: 'Please input your address', trigger: 'blur' },
+          { min: 1, max: 255, message: 'Length is between 1 and 255 characteristics', trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: 'Please input your email', trigger: 'blur' },
+          { min: 1, max: 20, message: 'Length is between 1 and 25 characteristics', trigger: 'blur' }
+        ],
+        phone: [
+          { required: true, message: 'Please input your phone', trigger: 'blur' },
+          { min: 1, max: 20, message: 'Length is between 1 and 20 characteristics', trigger: 'blur' }
         ],
       }
     }
   },
   methods: {
-    login() {
-      this.$refs['userForm'].validate((valid) => {
+    register() {
+      this.student.id=this.$route.query.id
+      this.$refs['studentForm'].validate((valid) => {
         if (valid) {  // 表单校验合法
-          if (this.user.password !== this.user.confirmPassword) {
-            this.$message.error("两次输入的密码不一致")
+          if (this.student.password !== this.student.confirmPassword) {
+            this.$message.error("The password entered twice does not match")
             return false
           }
-          this.request.post("/user/register", this.user).then(res => {
-            if(res.code === '200') {
-              this.$message.success("注册成功")
+          this.request.post("/student", this.student).then(res => {
+            if(res) {
+              this.$message.success("Register successfully")
             } else {
               this.$message.error(res.msg)
             }

@@ -35,6 +35,7 @@ const routes = [
     component: () => import( '../views/Login.vue'),
   },
   {path: '/verify', name: 'Verify', component: () => import( '../views/VerifyAccount.vue')},
+  {path: '/register', name: 'register', component: () => import( '../views/Register.vue')},
 ]
 
 const router = new VueRouter({

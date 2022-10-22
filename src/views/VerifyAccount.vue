@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
-    <div style="margin: 100px auto; background-color: #fff; width: 350px; height: 400px; padding: 20px; border-radius: 10px">
+    <div style="margin:200px 638px 100px 638px; background-color: #fff; width: 260px; height: 180px; padding: 20px; border-radius: 10px">
       <el-form :model="student" :rules="rules" ref="studentForm">
-        <el-form-item prop="id">
+        <el-form-item prop="id" style="margin-top: 30px">
           <el-input placeholder="Please input your user id" size="medium" style="margin: 5px 0" prefix-icon="el-icon-user" v-model="student.id"></el-input>
         </el-form-item>
-        <el-button style="text-align: center" type="primary" size="medium"  autocomplete="off" @click="verify">Verify</el-button>
+        <el-button style="margin: 10px 70px" type="primary" size="medium"  autocomplete="off" @click="verify">Verify</el-button>
       </el-form>
     </div>
   </div>
@@ -29,11 +29,11 @@ export default {
     verify(){
       this.$refs['studentForm'].validate((valid) => {
         if (valid) {
-          this.request.post("/student/login"+ this.student.id).then(res => {
+          this.request.get("/student/"+ this.student.id).then(res => {
             if(!res) {
               this.$message.error("Student doesn't exist")
             } else {
-              this.$router.push("/")
+              this.$router.push({path:"/register",query:{id:this.student.id}})
             }
           })
         }// 表单校验合法
