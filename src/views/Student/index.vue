@@ -3,7 +3,7 @@
     <el-header>
 <Navigation/>
     </el-header>
-    <el-main>
+    <el-main class="main">
       <router-view/>
     </el-main>
   </el-container>
@@ -20,5 +20,9 @@ export default {
 </script>
 
 <style scoped>
+.main{
+  background-color: #eee;
+  height:700px;
+}
 
 </style>

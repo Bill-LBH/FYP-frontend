@@ -10,7 +10,7 @@
       <el-col :span="20">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" router
                  style="">
-          <el-menu-item index="/myexam">Exam list</el-menu-item>
+          <el-menu-item index="/myexam">Exam List</el-menu-item>
           <el-menu-item index="/myscore">My Score</el-menu-item>
         </el-menu>
       </el-col>

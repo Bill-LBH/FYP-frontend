@@ -24,7 +24,7 @@
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" width="50"></el-table-column>
 <!--      <el-table-column prop="examcode" label="Exam code" width="120">-->
 <!--      </el-table-column>-->
       <el-table-column prop="source" label="Course name" width="180">
@@ -73,7 +73,7 @@
       </el-pagination>
     </div>
     <el-dialog title="New exam Information" :visible.sync="dialogFormVisible" width="30%" >
-      <el-form label-width="110px" size="small">
+      <el-form label-width="150px" size="small">
 <!--        <el-form-item label="Exam code">-->
 <!--          <el-input v-model="form.examcode" autocomplete="off"></el-input>-->
 <!--        </el-form-item>-->
@@ -85,14 +85,14 @@
         </el-form-item>
         <el-form-item label="Exam date">
           <el-col :span="11">
-            <el-date-picker type="date" placeholder="Select Date" v-model="form.examdate" style="width: 100%;"></el-date-picker>
+            <el-date-picker type="datetime" placeholder="Select Date and time" value-format="yyyy-MM-dd HH:mm"  v-model="form.examdate" style="width: 190px;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item label="Total time (minutes)">
           <el-input v-model="form.totaltime" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Grade">
-          <el-select v-model="form.grade" placeholder="Please select participated student grade">
+          <el-select v-model="form.grade" placeholder="Please select exam grade">
             <el-option
                 v-for="item in gradeoptions"
                 :key="item.value"
@@ -153,6 +153,7 @@ export default {
   name: "ExamManagement",
   data(){
     return{
+
       tableData: [],
       total :0,
       pageNum: 1,
@@ -315,6 +316,7 @@ export default {
     this.load()
   },
   methods: {
+
     load() {
       request.get("/exam/page", {
         params: {
@@ -328,7 +330,6 @@ export default {
 
         this.tableData = res.records
         this.total = res.total
-
       })
       /*      fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+"&pageSize=" + this.pageSize + "&username=" + this.username)
                 .then(res => res.json()).then(res => {
