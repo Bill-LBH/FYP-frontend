@@ -36,6 +36,11 @@ const routes = [
   },
   {path: '/verify', name: 'Verify', component: () => import( '../views/VerifyAccount.vue')},
   {path: '/register', name: 'register', component: () => import( '../views/Register.vue')},
+  {path: '/index', name:'student', component: ()=> import('../views/Student/index.vue'),
+    children:[
+        {path: '/myexam', name: 'myexam', component: () => import( '../views/Student/MyExam')},
+        {path: '/myscore', name: 'myscore', component: () => import( '../views/Student/MyScore')},]
+  }
 ]
 
 const router = new VueRouter({

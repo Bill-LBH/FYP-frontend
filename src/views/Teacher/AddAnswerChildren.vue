@@ -247,7 +247,7 @@
         </section>
       </el-tab-pane>
       <el-tab-pane name="second">
-        <span slot="label"><i class="iconfont icon-daoru-tianchong"></i>Online Paper Formation</span>
+        <span slot="label"><i class="el-icon-folder-add"></i>Online Paper Formation</span>
         <div class="box">
           <ul>
             <li>

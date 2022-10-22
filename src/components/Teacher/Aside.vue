@@ -8,7 +8,7 @@
            router
   >
     <div style="height: 60px; line-height: 60px; text-align: center">
-      <img src="../assets/new_logo.png" alt="" style="width: 40px; position: relative; top: 10px; right: 5px">
+      <img src="../../assets/new_logo.png" alt="" style="width: 40px; position: relative; top: 10px; right: 5px">
       <b style="color: white" v-show="logoTextShow">Online Exam</b>
     </div>
     <el-menu-item index="/home">

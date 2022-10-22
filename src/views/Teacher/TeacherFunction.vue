@@ -20,8 +20,8 @@
 
 <script>
 
-import Aside from "@/components/Aside";
-import Header from "@/components/Header";
+import Aside from "@/components/Teacher/Aside";
+import Header from "@/components/Teacher/Header";
 export default {
   name: 'Home',
   components: {
