@@ -102,7 +102,6 @@ export default {
     //跳转到试卷详情页
     toExamMsg(examcode) {
       this.$router.push({path: '/examMsg', query: {examcode: examcode}})
-      console.log(examcode)
     }
   }
 }

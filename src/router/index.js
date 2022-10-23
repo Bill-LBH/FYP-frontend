@@ -39,7 +39,9 @@ const routes = [
   {path: '/index', name:'student', component: ()=> import('../views/Student/index.vue'),
     children:[
         {path: '/myexam', name: 'myexam', component: () => import( '../views/Student/MyExam')},
-        {path: '/myscore', name: 'myscore', component: () => import( '../views/Student/MyScore')},]
+        {path: '/myscore', name: 'myscore', component: () => import( '../views/Student/MyScore')},
+      {path: '/examMsg', name: 'Exam_Message', component: () => import( '../views/Student/examMsg')},
+    ]
   }
 ]
 

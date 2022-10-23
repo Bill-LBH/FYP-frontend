@@ -80,9 +80,9 @@
         <el-form-item label="Course name">
           <el-input v-model="form.source" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="Paper id">
-          <el-input v-model="form.paperid" autocomplete="off"></el-input>
-        </el-form-item>
+<!--        <el-form-item label="Paper id">-->
+<!--          <el-input v-model="form.paperid" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="Exam date">
           <el-col :span="11">
             <el-date-picker type="datetime" placeholder="Select Date and time" value-format="yyyy-MM-dd HH:mm"  v-model="form.examdate" style="width: 190px;"></el-date-picker>
@@ -339,16 +339,20 @@ export default {
             })*/
     },
     reset() {
-      this.examcode = ""
+      this.examcode = null
       this.source = ""
-      this.paperid = ""
+      this.paperid = null
       this.load()
     },
     handleAdd() {
       this.dialogFormVisible = true
       this.form = {}
+      request.get("/exam/last").then(res =>{
+        this.form.paperid=res.data.examcode+1001
+      })
     },
     save() {
+
       request.post("/exam", this.form).then(res => {
         if (res) {
           this.$message.success("Save successfully")
@@ -361,6 +365,7 @@ export default {
     },
     handleEdit(row) {
       this.form = row
+      this.form.paperid=row.examcode+1000
       this.dialogFormVisible = true
     },
     del(id) {
