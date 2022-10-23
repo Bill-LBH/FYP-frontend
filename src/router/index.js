@@ -7,7 +7,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'teacher',
+    name: 'Login',
+    component: () => import( '../views/Login.vue'),
+  },
+  {
+    path: '/teacher',
     component: () => import( '../views/Teacher/TeacherFunction.vue'),
     redirect:"/home",
     children: [
@@ -29,14 +33,10 @@ const routes = [
       },
     ]
   },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import( '../views/Login.vue'),
-  },
   {path: '/verify', name: 'Verify', component: () => import( '../views/VerifyAccount.vue')},
   {path: '/register', name: 'register', component: () => import( '../views/Register.vue')},
   {path: '/index', name:'student', component: ()=> import('../views/Student/index.vue'),
+    redirect: '/myexam',
     children:[
         {path: '/myexam', name: 'myexam', component: () => import( '../views/Student/MyExam')},
         {path: '/myscore', name: 'myscore', component: () => import( '../views/Student/MyScore')},

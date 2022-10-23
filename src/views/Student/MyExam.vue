@@ -5,7 +5,7 @@
     </div>
     <div class="wrapper">
       <ul class="top">
-        <li>Paper list</li>
+        <li><b style="font-size: 20px">Paper list</b></li>
         <li class="search-li"><div class="icon"><input type="text" placeholder="Exam name" class="search" v-model="key"><i class="el-icon-search"></i></div></li>
         <li><el-button type="primary" @click="search()">Search exam</el-button></li>
       </ul>

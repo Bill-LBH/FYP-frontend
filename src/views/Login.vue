@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="loginwrapper">
     <div style="margin: 200px auto; background-color: #fff; width: 360px; height: 340px; padding: 20px; border-radius: 10px">
       <div style="margin: 20px 0; text-align: center; font-size: 24px; color: darkorange">
         <i class="el-icon-reading"></i>
@@ -55,7 +55,7 @@ export default {
               if(!res) {
                 this.$message.error("Student name or password error")
               } else {
-                this.$router.push("/")
+                this.$router.push("/index")
               }
             })
           }
@@ -64,7 +64,7 @@ export default {
               if(!res) {
                 this.$message.error("Teacher name or password error")
               } else {
-                this.$router.push("/")
+                this.$router.push("/teacher")
               }
             })
 
@@ -99,7 +99,7 @@ export default {
 </script>
 
 <style>
-.wrapper {
+.loginwrapper {
   height: 100vh;
   background-image: linear-gradient(to bottom right, #fffb0d , #3F5EFB);
   overflow: hidden;

@@ -1,7 +1,7 @@
 <template>
   <div id="msg">
     <div class="title">
-      <span>Exam list</span>
+      <span>Paper list</span>
       <span> /  {{examData.source}}</span>
     </div>
     <div class="wrapper">
