@@ -3,9 +3,9 @@
 
   <div style="margin: 10px 0">
     <el-input style="width: 200px" placeholder="Please input student id" suffix-icon="el-icon-search" v-model="id"></el-input>
-    <el-input style="width: 200px" placeholder="Please input student major" suffix-icon="el-icon-search" v-model="major"></el-input>
-    <el-input style="width: 200px" placeholder="Please input student name" suffix-icon="el-icon-search" v-model="username"></el-input>
-    <el-button class="ml-5" type="primary" @click="load">Search</el-button>
+    <el-input style="width: 200px; margin-left: 10px" placeholder="Please input student major" suffix-icon="el-icon-search" v-model="major"></el-input>
+    <el-input style="width: 200px; margin-left: 10px" placeholder="Please input student name" suffix-icon="el-icon-search" v-model="username"></el-input>
+    <el-button style="margin-left: 10px" class="ml-5" type="primary" @click="load">Search</el-button>
     <el-button class="el-alert--warning" type="primary" @click="reset">Reset</el-button>
   </div>
 
