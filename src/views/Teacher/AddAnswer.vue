@@ -108,7 +108,6 @@ export default {
       this.$router.push({path:'/addAnswerChildren',query: {paperId: paperId,subject:source}})
     },
     reset() {
-      this.examcode = ""
       this.source = ""
       this.paperid = ""
       this.load()

@@ -339,9 +339,8 @@ export default {
             })*/
     },
     reset() {
-      this.examcode = null
       this.source = ""
-      this.paperid = null
+      this.paperid = ""
       this.load()
     },
     handleAdd() {
