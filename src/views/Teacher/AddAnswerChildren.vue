@@ -53,7 +53,7 @@
                   clearable>
               </el-input>
             </li>
-            <li v-if="optionValue == 'Judgment'">
+            <li v-if="optionValue == 'Judgement'">
               <span>Section:</span>
               <el-input
                   placeholder="Type in section"
@@ -62,7 +62,7 @@
                   clearable>
               </el-input>
             </li>
-            <li v-if="optionValue == 'Judgment'">
+            <li v-if="optionValue == 'Judgement'">
               <span>Score:</span>
               <el-input
                   placeholder="Type in score"
@@ -93,7 +93,7 @@
                 </el-option>
               </el-select>
             </li>
-            <li v-if="optionValue == 'Judgment'">
+            <li v-if="optionValue == 'Judgement'">
               <span>Difficulty Level:</span>
               <el-select v-model="postJudge.level" placeholder="Select difficulty level" class="w150">
                 <el-option
@@ -213,7 +213,7 @@
             </div>
           </div>
           <!-- 判断题 -->
-          <div class="change judge" v-if="optionValue == 'Judgment'">
+          <div class="change judge" v-if="optionValue == 'Judgement'">
             <div class="title">
               <el-tag size="small">Question</el-tag><span>Enter the question in the input box below</span>
               <el-input
@@ -230,7 +230,7 @@
               <el-radio v-model="postJudge.answer" label="F">False</el-radio>
             </div>
             <div class="title">
-              <el-tag size="small">Evaluation</el-tag><span>Enter the explanation in the input box below</span>
+              <el-tag size="small">Explanation</el-tag><span>Enter the explanation in the input box below</span>
               <el-input
                   type="textarea"
                   rows="4"
@@ -245,35 +245,141 @@
             </div>
           </div>
         </section>
+        <!-- 在线手动组卷 -->
       </el-tab-pane>
       <el-tab-pane name="second">
-        <span slot="label"><i class="el-icon-folder-add"></i> Online Paper Formation</span>
+        <span slot="label"><i class="el-icon-folder-add"></i>  Question selection</span>
         <div class="box">
-          <ul>
-            <li>
-              <span>Difficulty:</span>
-              <el-select v-model="difficultyValue" placeholder="Difficulty of questions" class="w150">
-                <el-option
-                    v-for="item in difficulty"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-              </el-select>
-            </li>
-            <li>
-              <span>Number of multiple choice questions：</span> <el-input type="text" v-model="changeNumber"></el-input>
-            </li>
-            <li>
-              <span>Number of fill-in-the-blank questions：</span> <el-input type="text" v-model="fillNumber"></el-input>
-            </li>
-            <li>
-              <span>Number of judgment questions：</span> <el-input type="text" v-model="judgeNumber"></el-input>
-            </li>
-            <li>
-              <el-button type="primary" @click="create()">Forming paper now</el-button>
-            </li>
-          </ul>
+          <span>Type:</span>
+          <el-select v-model="questiontypea" placeholder="Types of questions" class="w150" @change="load" style="margin-left: 20px;width: 170px">
+            <el-option
+                v-for="item in type"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+          <div class="multiple" v-if="questiontypea=='Multiple choice question'">
+
+            <el-table :data="MultitableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange" style="margin-top: 20px">
+              <el-table-column type="selection" width="55"></el-table-column>
+              <!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
+              <!--      </el-table-column>-->
+              <el-table-column prop="subject" label="Subject" width="120">
+              </el-table-column>
+              <el-table-column prop="question" label="Question" width="180">
+              </el-table-column>
+              <el-table-column prop="answera" label="Answer A" width="180">
+              </el-table-column>
+              <el-table-column prop="answerb" label="Answer B" width="180">
+              </el-table-column>
+              <el-table-column prop="answerc" label="Answer C" width="180">
+              </el-table-column>
+              <el-table-column prop="answerd" label="Answer D" width="180">
+              </el-table-column>
+              <el-table-column prop="rightanswer" label="Right answer" width="110">
+              </el-table-column>
+              <el-table-column prop="analysis" label="Analysis" width="140">
+              </el-table-column>
+              <el-table-column prop="score" label="Score" width="100">
+              </el-table-column>
+              <el-table-column prop="section" label="Section" width="100">
+              </el-table-column>
+              <el-table-column prop="level" label="Level" width="80">
+              </el-table-column>
+              <el-table-column label="Operation"  width="200" align="center">
+                <template v-slot="scope">
+                  <el-button type="success" @click="addmultiple(scope.row)">Add <i class="el-icon-folder-add"></i></el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div style="padding: 10px 0">
+              <el-pagination
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="pageNum"
+                  :page-sizes="[2, 5, 10, 20]"
+                  :page-size="pageSize"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="total">
+              </el-pagination>
+            </div>
+          </div>
+          <div class="judge" v-if="questiontypea=='Judge question'">
+            <el-table :data="JudgetableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange" style="margin-top: 20px">
+              <el-table-column type="selection" width="55"></el-table-column>
+              <!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
+              <!--      </el-table-column>-->
+              <el-table-column prop="subject" label="Subject" width="170">
+              </el-table-column>
+              <el-table-column prop="question" label="Question" width="300">
+              </el-table-column>
+              <el-table-column prop="answer" label="Answer" width="80">
+              </el-table-column>
+              <el-table-column prop="analysis" label="Analysis" width="160">
+              </el-table-column>
+              <el-table-column prop="score" label="Score" width="80">
+              </el-table-column>
+              <el-table-column prop="section" label="Section" width="120">
+              </el-table-column>
+              <el-table-column prop="level" label="Level" width="80">
+              </el-table-column>
+              <el-table-column label="Operation"  width="200" align="center">
+                <template v-slot="scope">
+                  <el-button type="success" @click="addjudge(scope.row)">Add <i class="el-icon-edit"></i></el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div style="padding: 10px 0">
+              <el-pagination
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="pageNum"
+                  :page-sizes="[2, 5, 10, 20]"
+                  :page-size="pageSize"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="total">
+              </el-pagination>
+            </div>
+          </div>
+          <div class="fill" v-if="questiontypea=='Fill in question'">
+            <el-table :data="FilltableData" border stripe :header-cell-class-name="headerBg"
+                      @selection-change="handleSelectionChange" style="margin-top: 20px">
+              <el-table-column type="selection" width="55"></el-table-column>
+              <!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
+              <!--      </el-table-column>-->
+              <el-table-column prop="subject" label="Subject" width="140">
+              </el-table-column>
+              <el-table-column prop="question" label="Question" width="140">
+              </el-table-column>
+              <el-table-column prop="answer" label="Answer" width="140">
+              </el-table-column>
+              <el-table-column prop="analysis" label="Analysis" width="140">
+              </el-table-column>
+              <el-table-column prop="score" label="Score" width="140">
+              </el-table-column>
+              <el-table-column prop="section" label="Section" width="140">
+              </el-table-column>
+              <el-table-column prop="level" label="Level" width="140">
+              </el-table-column>
+              <el-table-column label="Operation" width="200" align="center">
+                <template v-slot="scope">
+                  <el-button type="success" @click="addfill(scope.row)">Add <i class="el-icon-edit"></i></el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div style="padding: 10px 0">
+              <el-pagination
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="pageNum"
+                  :page-sizes="[2, 5, 10, 20]"
+                  :page-size="pageSize"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="total">
+              </el-pagination>
+            </div>
+          </div>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -286,10 +392,14 @@ import request from "@/utils/request";
 export default {
   data() {
     return {
-      changeNumber: null, //选择题出题数量
-      fillNumber: null, //填空题出题数量
-      judgeNumber: null, //判断题出题数量
+      MultitableData: [],
+      FilltableData: [],
+      JudgetableData:[],
       activeName: 'first',  //活动选项卡
+      total :0,
+      pageNum: 1,
+      pageSize: 2,
+      headerBg: 'headerBg',
       options: [ //题库类型
         {
           value: 'Multiple Choice',
@@ -300,25 +410,25 @@ export default {
           label: 'Fill-in-the-blank'
         },
         {
-          value: 'Judgment',
-          label: 'Judgment'
+          value: 'Judgement',
+          label: 'Judgement'
         },
       ],
-      difficulty: [ //试题难度
+      type: [ //试题类型
         {
-          value: 'Simple',
-          label: 'Simple'
+          value: 'Multiple choice question',
+          label: 'Multiple choice question'
         },
         {
-          value: 'Normal',
-          label: 'Normal'
+          value: 'Judge question',
+          label: 'Judge question'
         },
         {
-          value: 'Difficulty',
-          label: 'Difficulty'
+          value: 'Fill in question',
+          label: 'Fill in question'
         }
       ],
-      difficultyValue: 'Simple',
+      questiontypea: 'Multiple choice question',
       levels: [ //难度等级
         {
           value: '1',
@@ -402,41 +512,79 @@ export default {
   },
   created() {
     this.getParams()
+    this.load()
   },
   methods: {
     // handleClick(tab, event) {
     //   console.log(tab, event);
     // },
-    create() {
-      this.$axios({
-        url: '/paper-manage/item',
-        method: 'post',
-        data: {
-          changeNumber: this.changeNumber,
-          fillNumber: this.fillNumber,
-          judgeNumber: this.judgeNumber,
-          paperid: this.paperid,
-          subject: 'Network' //题目数量太少，指定为计算机网络出题
-        }
-      }).then(res => {
-        console.log(res)
-        let data = res.data
-        if(data.code==200){
-          setTimeout(() => {
-            this.$router.push({path: '/exam'})
-          },1000)
-          this.$message({
-            message: data.message,
-            type: 'success'
-          })
-        }else if(data.code==400){
-          this.$message({
-            message: data.message,
-            type: 'error'
-          })
-        }
+    load() {
+      console.log(this.questiontypea)
+      if(this.questiontypea=='Multiple choice question'){
+        request.get("/multi-question/page", {
+          params: {
+            pageNum: this.pageNum,
+            pageSize: this.pageSize,
+            subject: '',
+            section: '',
+          }
+        }).then(res => {
+          console.log(res)
 
-      })
+          this.MultitableData = res.records
+          this.total = res.total
+
+        })
+      }
+      else if(this.questiontypea=='Judge question'){
+        request.get("/judge-question/page", {
+          params: {
+            pageNum: this.pageNum,
+            pageSize: this.pageSize,
+            subject: '',
+            section: '',
+          }
+        }).then(res => {
+          console.log(res)
+
+          this.JudgetableData = res.records
+          this.total = res.total
+
+        })
+      }
+      else if (this.questiontypea=='Fill in question'){
+        request.get("/fill-question/page", {
+          params: {
+            pageNum: this.pageNum,
+            pageSize: this.pageSize,
+            subject: '',
+            section: '',
+          }
+        }).then(res => {
+          console.log(res)
+
+          this.FilltableData = res.records
+          this.total = res.total
+
+        })
+
+      }
+      /*      fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+"&pageSize=" + this.pageSize + "&username=" + this.username)
+                .then(res => res.json()).then(res => {
+              console.log(res)
+              this.tableData = res.data
+              this.total = res.total
+            })*/
+    },
+    handleSizeChange(pageSize) {
+      console.log(pageSize)
+      this.pageSize = pageSize
+      this.load()
+    },
+    handleCurrentChange(pageNum) {
+      console.log(pageNum)
+      this.pageNum = pageNum
+      this.load()
     },
     getParams() {
       let subject = this.$route.query.subject //获取试卷名称
@@ -444,6 +592,10 @@ export default {
       this.paperid = paperid
       this.subject = subject
       this.postPaper.paperid = paperid
+    },
+    handleSelectionChange(val) {
+      console.log(val)
+      this.multipleSelection = val
     },
     changeSubmit() { //选择题题库提交
       this.postChange.subject = this.subject
@@ -461,6 +613,31 @@ export default {
           this.postPaper.questiontype = 1
           request.post('/paper-manage/paperManage',this.postPaper)
         })
+      })
+    },
+    addmultiple(row){
+      this.postPaper.questionid=row.questionid
+      this.postPaper.questiontype=1
+      request.get('/paper-manage/'+row.questionid).then(res=>{
+        if(res.code == 400){
+          request.post('/paper-manage/paperManage',this.postPaper).then(res => {
+            let status = res.code
+            if(status == 200) {
+              this.$message({
+                message: 'Add to the paper',
+                type: 'success'
+              })
+              this.postPaper = {}
+            }
+          })
+        }
+        else if(res.code == 200){
+          this.$message({
+            message:'Question already exists',
+                type: 'error'
+          })
+          this.postPaper = {}
+        }
       })
     },
     fillSubmit() { //填空题提交
@@ -483,6 +660,31 @@ export default {
         })
       })
     },
+    addfill(row){
+      this.postPaper.questionid=row.questionid
+      this.postPaper.questiontype=2
+      request.get('/paper-manage/'+row.questionid).then(res=>{
+        if(res.code == 400){
+          request.post('/paper-manage/paperManage',this.postPaper).then(res => {
+            let status = res.code
+            if(status == 200) {
+              this.$message({
+                message: 'Add to the paper',
+                type: 'success'
+              })
+              this.postPaper = {}
+            }
+          })
+        }
+        else if(res.code == 200){
+          this.$message({
+            message:'Question already exists',
+            type: 'error'
+          })
+          this.postPaper = {}
+        }
+      })
+    },
     judgeSubmit() { //判断题提交
       this.postJudge.subject = this.subject
       request.post('/judge-question/judge',this.postJudge).then(res => {
@@ -503,7 +705,32 @@ export default {
           request.post('/paper-manage/paperManage', this.postPaper)
         })
       })
-    }
+    },
+    addjudge(row){
+      this.postPaper.questionid=row.questionid
+      this.postPaper.questiontype=3
+      request.get('/paper-manage/'+row.questionid).then(res=>{
+        if(res.code == 400){
+          request.post('/paper-manage/paperManage',this.postPaper).then(res => {
+            let status = res.code
+            if(status == 200) {
+              this.$message({
+                message: 'Add to the paper',
+                type: 'success'
+              })
+              this.postPaper = {}
+            }
+          })
+        }
+        else if(res.code == 200){
+          this.$message({
+            message:'Question already exists',
+            type: 'error'
+          })
+          this.postPaper = {}
+        }
+      })
+    },
   },
 };
 </script>

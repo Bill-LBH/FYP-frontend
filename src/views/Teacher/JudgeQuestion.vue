@@ -43,16 +43,8 @@
       </el-table-column>
       <el-table-column prop="section" label="Section" width="120">
       </el-table-column>
-      <el-form-item label="Level">
-        <el-select v-model="form.level" placeholder="Please select difficulty of this question">
-          <el-option
-              v-for="item in leveloptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
+      <el-table-column prop="level" label="Level" width="80">
+      </el-table-column>
       <el-table-column label="Operation"  width="200" align="center">
         <template v-slot="scope">
           <el-button type="success" @click="handleEdit(scope.row)">Edit <i class="el-icon-edit"></i></el-button>
