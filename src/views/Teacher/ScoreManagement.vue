@@ -37,7 +37,7 @@
       </el-table-column>
       <el-table-column prop="answerdate" label="Answer Date" width="140">
       </el-table-column>
-      <el-table-column label="Operation"  width="200" align="center">
+      <el-table-column label="Operation"  width="180" align="center">
         <template v-slot="scope">
           <el-button type="success" @click="handleEdit(scope.row)">Edit <i class="el-icon-edit"></i></el-button>
           <el-popconfirm

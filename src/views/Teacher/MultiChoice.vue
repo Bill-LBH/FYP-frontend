@@ -27,7 +27,25 @@
       <el-button type="primary" @click="exp" class="ml-5">Export <i class="el-icon-top"></i></el-button>
     </div>
 
-    <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
+    <el-table :data="tableData" height="500" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="Analysis" style="width: 80%">
+              <span>{{ props.row.analysis }}</span>
+            </el-form-item>
+            <el-form-item label="Score">
+              <span>{{ props.row.score }}</span>
+            </el-form-item>
+            <el-form-item label="Section">
+              <span>{{ props.row.section }}</span>
+            </el-form-item>
+            <el-form-item label="Level">
+              <span>{{ props.row.level }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column type="selection" width="55"></el-table-column>
 <!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
 <!--      </el-table-column>-->
@@ -35,24 +53,24 @@
       </el-table-column>
       <el-table-column prop="question" label="Question" width="180">
       </el-table-column>
-      <el-table-column prop="answera" label="Answer A" width="180">
+      <el-table-column prop="answera" label="Answer A" width="160">
       </el-table-column>
-      <el-table-column prop="answerb" label="Answer B" width="180">
+      <el-table-column prop="answerb" label="Answer B" width="160">
       </el-table-column>
-      <el-table-column prop="answerc" label="Answer C" width="180">
+      <el-table-column prop="answerc" label="Answer C" width="160">
       </el-table-column>
-      <el-table-column prop="answerd" label="Answer D" width="180">
+      <el-table-column prop="answerd" label="Answer D" width="160">
       </el-table-column>
       <el-table-column prop="rightanswer" label="Right answer" width="110">
       </el-table-column>
-      <el-table-column prop="analysis" label="Analysis" width="140">
-      </el-table-column>
-      <el-table-column prop="score" label="Score" width="100">
-      </el-table-column>
-      <el-table-column prop="section" label="Section" width="100">
-      </el-table-column>
-      <el-table-column prop="level" label="Level" width="80">
-      </el-table-column>
+<!--      <el-table-column prop="analysis" label="Analysis" width="140">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column prop="score" label="Score" width="100">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column prop="section" label="Section" width="100">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column prop="level" label="Level" width="80">-->
+<!--      </el-table-column>-->
       <el-table-column label="Operation"  width="200" align="center">
         <template v-slot="scope">
           <el-button type="success" @click="handleEdit(scope.row)">Edit <i class="el-icon-edit"></i></el-button>
@@ -270,7 +288,6 @@ export default {
       })
     },
     handleSelectionChange(val) {
-      console.log(val)
       this.multipleSelection = val
     },
     delBatch() {
@@ -308,4 +325,16 @@ export default {
 </script>
 
 <style>
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

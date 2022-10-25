@@ -31,17 +31,26 @@
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg"
               @selection-change="handleSelectionChange">
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="Analysis" style="width: 100%">
+              <span>{{ props.row.analysis }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column type="selection" width="55"></el-table-column>
       <!--      <el-table-column prop="questionid" label="Question Id" width="140">-->
       <!--      </el-table-column>-->
       <el-table-column prop="subject" label="Subject" width="140">
       </el-table-column>
-      <el-table-column prop="question" label="Question" width="140">
+      <el-table-column prop="question" label="Question" width="290">
       </el-table-column>
       <el-table-column prop="answer" label="Answer" width="140">
       </el-table-column>
-      <el-table-column prop="analysis" label="Analysis" width="140">
-      </el-table-column>
+<!--      <el-table-column prop="analysis" label="Analysis" width="160">-->
+<!--      </el-table-column>-->
       <el-table-column prop="score" label="Score" width="140">
       </el-table-column>
       <el-table-column prop="section" label="Section" width="140">

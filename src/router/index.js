@@ -28,7 +28,13 @@ const routes = [
         component: () => import('../views/Teacher/AddAnswer.vue')
       },
       {
+        path:'/viewpaper',
+        name:'View paper',
+        component: () => import('../views/Teacher/ViewPaper.vue')
+      },
+      {
         path: '/addAnswerChildren', //点击试卷跳转到添加题库页面
+        name:'Edit paper',
         component: () => import('../views/Teacher/AddAnswerChildren.vue')
       },
     ]

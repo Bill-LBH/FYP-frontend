@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       loading: false,
-      key: null, //搜索关键字
+      key: '', //搜索关键字
       allExam: null, //所有考试信息
       pageNum:1,
       total:0,
@@ -67,7 +67,8 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          source:this.key
+          source:this.key,
+          paperid:''
         }
       }).then(res => {
         console.log(res)

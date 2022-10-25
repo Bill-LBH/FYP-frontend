@@ -628,6 +628,7 @@ export default {
                 type: 'success'
               })
               this.postPaper = {}
+              this.postPaper.paperid=this.paperid
             }
           })
         }
@@ -637,6 +638,7 @@ export default {
                 type: 'error'
           })
           this.postPaper = {}
+          this.postPaper.paperid=this.paperid
         }
       })
     },
@@ -673,6 +675,7 @@ export default {
                 type: 'success'
               })
               this.postPaper = {}
+              this.postPaper.paperid=this.paperid
             }
           })
         }
@@ -682,6 +685,7 @@ export default {
             type: 'error'
           })
           this.postPaper = {}
+          this.postPaper.paperid=this.paperid
         }
       })
     },
@@ -719,6 +723,7 @@ export default {
                 type: 'success'
               })
               this.postPaper = {}
+              this.postPaper.paperid=this.paperid
             }
           })
         }
@@ -728,6 +733,7 @@ export default {
             type: 'error'
           })
           this.postPaper = {}
+          this.postPaper.paperid=this.paperid
         }
       })
     },

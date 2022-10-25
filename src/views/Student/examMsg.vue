@@ -51,7 +51,7 @@
               </template>
               <div class="contenti">
                 <ul class="question" v-for="(list, index) in topic[2]" :key="index">
-                  <li>{{topicCount[0]+index+1}}.{{list.question}}</li>
+                  <li>{{topicCount[0]+index+1}}. {{list.question}}</li>
                 </ul>
               </div>
             </el-collapse-item>
