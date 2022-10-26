@@ -20,7 +20,7 @@
         </el-form-item>
         <el-form-item style="margin: 5px 0; text-align: right">
           <el-button type="primary" size="small"  autocomplete="off" @click="register">Register</el-button>
-          <el-button type="warning" size="small"  autocomplete="off" @click="$router.push('/login')">Back to login</el-button>
+          <el-button type="warning" size="small"  autocomplete="off" @click="$router.push('/')">Back to login</el-button>
         </el-form-item>
       </el-form>
     </div>
