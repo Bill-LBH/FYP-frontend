@@ -199,7 +199,7 @@ export default {
       request.delete(`/paper-manage/${id}`).then(res => {
         if (res) {
           this.$message.success("Delete successfully")
-          this.load()
+          this.init()
         } else {
           this.$message.error("Delete failed")
         }

@@ -74,7 +74,7 @@
           :total="total">
       </el-pagination>
     </div>
-    <el-dialog title="New fill in question" :visible.sync="dialogFormVisible" width="30%" >
+    <el-dialog title="New judge question" :visible.sync="dialogFormVisible" width="30%" >
       <el-form label-width="100px" size="small">
 <!--        <el-form-item label="Question Id">-->
 <!--          <el-input v-model="form.questionid" autocomplete="off"></el-input>-->

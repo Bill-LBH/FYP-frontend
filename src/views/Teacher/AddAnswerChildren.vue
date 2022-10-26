@@ -618,7 +618,8 @@ export default {
     addmultiple(row){
       this.postPaper.questionid=row.questionid
       this.postPaper.questiontype=1
-      request.get('/paper-manage/'+row.questionid).then(res=>{
+      console.log(this.paperid)
+      request.get('/paper-manage/'+row.questionid+'/'+this.paperid+'/'+1).then(res=>{
         if(res.code == 400){
           request.post('/paper-manage/paperManage',this.postPaper).then(res => {
             let status = res.code
@@ -665,7 +666,7 @@ export default {
     addfill(row){
       this.postPaper.questionid=row.questionid
       this.postPaper.questiontype=2
-      request.get('/paper-manage/'+row.questionid).then(res=>{
+      request.get('/paper-manage/'+row.questionid+'/'+this.paperid+'/'+2).then(res=>{
         if(res.code == 400){
           request.post('/paper-manage/paperManage',this.postPaper).then(res => {
             let status = res.code
@@ -713,7 +714,7 @@ export default {
     addjudge(row){
       this.postPaper.questionid=row.questionid
       this.postPaper.questiontype=3
-      request.get('/paper-manage/'+row.questionid).then(res=>{
+      request.get('/paper-manage/'+row.questionid+'/'+this.paperid+'/'+3).then(res=>{
         if(res.code == 400){
           request.post('/paper-manage/paperManage',this.postPaper).then(res => {
             let status = res.code

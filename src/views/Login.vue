@@ -36,7 +36,7 @@ export default {
       rules: {
         id: [
           { required: true, message: 'Please input user ID', trigger: 'blur' },
-          { min: 10, max: 10, message: 'Length is characters', trigger: 'blur' }
+          { min: 10, max: 10, message: 'Length is 10 characters', trigger: 'blur' }
         ],
         password: [
           { required: true, message: 'Please input password', trigger: 'blur' },
@@ -52,7 +52,7 @@ export default {
           if(this.identity=="1"){
 
             this.request.post("/student/login", this.user).then(res => {
-              if(!res) {
+              if(res.code!=200) {
                 this.$message.error("Student name or password error")
               } else {
                 this.$router.push("/index")
@@ -61,7 +61,7 @@ export default {
           }
           else if(this.identity=="2"){
             this.request.post("/teacher/login", this.user).then(res => {
-              if(!res) {
+              if(res.code!=200) {
                 this.$message.error("Teacher name or password error")
               } else {
                 this.$router.push("/teacher")
