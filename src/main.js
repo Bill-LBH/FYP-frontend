@@ -7,10 +7,12 @@ import './assets/global.css'
 import request from "@/utils/request";
 import store from './vuex/store'
 import axios from "axios";
+import VueCookies from 'vue-cookies';
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 
 Vue.use(ElementUI, { size: "mini" });
+Vue.use(VueCookies)
 Vue.prototype.request=request
 new Vue({
   router,

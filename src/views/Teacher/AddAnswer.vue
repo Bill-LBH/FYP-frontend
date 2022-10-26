@@ -35,6 +35,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <router-view />
 
     <div style="padding: 10px 0">
       <el-pagination
@@ -106,10 +107,10 @@ export default {
             })*/
     },
     add(paperId,source) { //增加题库
-      this.$router.push({path:'/addAnswerChildren',query: {paperId: paperId,subject:source}})
+      this.$router.push({path:'/papermanage/addAnswerChildren',query: {paperId: paperId,subject:source}})
     },
     view(paperId){
-      this.$router.push({path:'/viewpaper',query:{paperId: paperId}})
+      this.$router.push({path:'/papermanage/viewpaper',query:{paperId: paperId}})
     },
     reset() {
       this.source = ""

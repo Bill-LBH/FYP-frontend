@@ -27,7 +27,7 @@
           <span slot="title">Exam arrange</span>
         </template>
       </el-menu-item>
-      <el-menu-item index="/addAnswer" style="font-size: 15px">
+      <el-menu-item index="/papermanage" style="font-size: 15px">
         <template slot="title">
           <span slot="title">Paper setting</span>
         </template>

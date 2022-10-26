@@ -1,12 +1,13 @@
 <template>
   <div style="font-size: 12px; border-bottom: 1px solid #ccc; line-height: 60px; display: flex">
-  <div style="flex: 1">
-    <span :class="collapseBtnClass" style="cursor: pointer; font-size: 20px" @click="Collapse"></span>
+    <div style="flex: 1">
+      <span :class="collapseBtnClass" style="cursor: pointer; font-size: 20px" @click="Collapse"></span>
       <el-breadcrumb separator="/" style="display: inline-block; margin-left: 10px">
-        <el-breadcrumb-item :to="{ path: '/home' }">Home</el-breadcrumb-item>
-        <el-breadcrumb-item>{{ currentPathName }}</el-breadcrumb-item>
+        <el-breadcrumb-item v-for="item in routers" :to="{ path: item.path }" :key="item.index">
+          {{ item.name }}
+        </el-breadcrumb-item>
       </el-breadcrumb>
-  </div>
+    </div>
     <el-dropdown style="width: 100px; cursor: pointer">
       <div style="display: inline-block">
         <span>{{ teacher.username }}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
@@ -36,15 +37,17 @@ export default {
     },
 
   },
-
   computed: {
-    currentPathName () {
-      return this.$route.name;　　//需要监听的数据
+    routers() {
+      return this.$route.matched.map((i, index) => {
+        return {key: index, name: i.name, path: i.path}
+      })
     }
   },
   data() {
     return {
-      teacher: localStorage.getItem("teacher") ? JSON.parse(localStorage.getItem("teacher")) : {}
+      teacher: localStorage.getItem("teacher") ? JSON.parse(localStorage.getItem("teacher")) : {},
+      routerpath: []
     }
   },
 
@@ -54,9 +57,10 @@ export default {
       localStorage.removeItem("teacher")
       this.$message.success("Exit successfully")
     },
-    Collapse(){
+    Collapse() {
       this.collapse();
-    }
+    },
+
   }
 }
 </script>
