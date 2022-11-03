@@ -85,7 +85,8 @@
 
 <script>
 import request from "@/utils/request";
-
+import {mapState} from 'vuex'
+import store from '@/vuex/store'
 export default {
   name: "examMsg",
   data() {
@@ -131,9 +132,12 @@ export default {
       })
     },
     toAnswer(id) {
+      let isPractice = false
+      store.commit("practice", isPractice)
       this.$router.push({path:"/answer",query:{examcode: id}})
     },
-  }
+  },
+  computed:mapState(["isPractice"])
 }
 </script>
 
