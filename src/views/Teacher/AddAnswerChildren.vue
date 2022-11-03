@@ -400,6 +400,7 @@ export default {
       pageNum: 1,
       pageSize: 2,
       headerBg: 'headerBg',
+      score: [],
       options: [ //题库类型
         {
           value: 'Multiple Choice',
@@ -470,6 +471,10 @@ export default {
         },
       ],
       paperid: null,
+      totalscore: null,
+      topic: {  //试卷信息
+
+      },
       optionValue: 'Multiple Choice', //题型选中值
       subject: '', //试卷名称用来接收路由参数
       postChange: { //选择题提交内容
@@ -519,7 +524,7 @@ export default {
     //   console.log(tab, event);
     // },
     load() {
-      console.log(this.questiontypea)
+      // console.log(this.questiontypea)
       if(this.questiontypea=='Multiple choice question'){
         request.get("/multi-question/page", {
           params: {
@@ -529,7 +534,7 @@ export default {
             section: '',
           }
         }).then(res => {
-          console.log(res)
+          // console.log(res)
 
           this.MultitableData = res.records
           this.total = res.total
@@ -545,7 +550,7 @@ export default {
             section: '',
           }
         }).then(res => {
-          console.log(res)
+          // console.log(res)
 
           this.JudgetableData = res.records
           this.total = res.total
@@ -561,7 +566,7 @@ export default {
             section: '',
           }
         }).then(res => {
-          console.log(res)
+          // console.log(res)
 
           this.FilltableData = res.records
           this.total = res.total
@@ -575,14 +580,36 @@ export default {
               this.tableData = res.data
               this.total = res.total
             })*/
+      request.get("/paper-manage/paper/"+this.paperid).then(res => {  //通过paperId获取试题题目信息
+        this.topic = res
+        let keys = Object.keys(this.topic) //对象转数组
+        keys.forEach(e => {
+          let data = this.topic[e]
+          let currentScore = 0
+          for(let i = 0; i< data.length; i++) { //循环每种题型,计算出总分
+            currentScore += data[i].score
+          }
+          this.score.push(currentScore) //把每种题型总分存入score
+        })
+        this.totalscore= this.score.reduce((prev,cv)=>{
+          return (prev+cv)
+        },0)
+        console.log(this.totalscore)
+        console.log(this.paperid)
+        request.post("exam/score", {
+          score: this.totalscore,
+          id: this.paperid
+        }).then(res=>{
+        })
+      })
     },
     handleSizeChange(pageSize) {
-      console.log(pageSize)
+      // console.log(pageSize)
       this.pageSize = pageSize
       this.load()
     },
     handleCurrentChange(pageNum) {
-      console.log(pageNum)
+      // console.log(pageNum)
       this.pageNum = pageNum
       this.load()
     },
@@ -594,14 +621,14 @@ export default {
       this.postPaper.paperid = paperid
     },
     handleSelectionChange(val) {
-      console.log(val)
+      // console.log(val)
       this.multipleSelection = val
     },
     changeSubmit() { //选择题题库提交
       this.postChange.subject = this.subject
       request.post('/multi-question/MultiQuestion',this.postChange).then(res => { //添加成功显示提示
         let status = res.code
-        console.log(status)
+        // console.log(status)
         if(status == 200) {
           this.$message.success("Add to paper successfully")
           this.postChange = {}
@@ -618,7 +645,7 @@ export default {
     addmultiple(row){
       this.postPaper.questionid=row.questionid
       this.postPaper.questiontype=1
-      console.log(this.paperid)
+      // console.log(this.paperid)
       request.get('/paper-manage/'+row.questionid+'/'+this.paperid+'/'+1).then(res=>{
         if(res.code == 400){
           request.post('/paper-manage/paperManage',this.postPaper).then(res => {
@@ -704,7 +731,7 @@ export default {
       }).then(() => {
         request.get(`/judge-question/judgeQuestionId`).then(res => { //获取当前题目的questionId
           let questionid = res.data.questionid
-          console.log(questionid)
+          // console.log(questionid)
           this.postPaper.questionid = questionid
           this.postPaper.questiontype = 3
           request.post('/paper-manage/paperManage', this.postPaper)

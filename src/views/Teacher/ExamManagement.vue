@@ -121,9 +121,9 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Total score">
-          <el-input v-model="form.totalscore" autocomplete="off"></el-input>
-        </el-form-item>
+<!--        <el-form-item label="Total score">-->
+<!--          <el-input v-model="form.totalscore" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="Type">
           <el-select v-model="form.type" placeholder="Please select exam type">
             <el-option
@@ -170,7 +170,12 @@ export default {
       tips:"",
       headerBg: 'headerBg',
       form: {},
+      score: [],
       dialogFormVisible: false,
+      topicCount: [],//每种类型题目的总数
+      topic: {  //试卷信息
+
+      },
       termoptions: [{
         value: '2019/09',
         label: '2019/09'
@@ -326,7 +331,6 @@ export default {
           source: this.source,
         }
       }).then(res => {
-        console.log(res)
 
         this.tableData = res.records
         this.total = res.total
@@ -349,6 +353,7 @@ export default {
       request.get("/exam/last").then(res =>{
         this.form.paperid=res.data.examcode+1001
       })
+      this.form.totalscore=0
     },
     save() {
 
@@ -361,10 +366,29 @@ export default {
           this.$message.error("Failed")
         }
       })
+
     },
     handleEdit(row) {
       this.form = row
       this.form.paperid=row.examcode+1000
+      let paperId=this.form.paperid
+
+      request.get("/paper-manage/paper/"+paperId).then(res => {  //通过paperId获取试题题目信息
+        this.topic = res
+        let keys = Object.keys(this.topic) //对象转数组
+        keys.forEach(e => {
+          let data = this.topic[e]
+          let currentScore = 0
+          for(let i = 0; i< data.length; i++) { //循环每种题型,计算出总分
+            currentScore += data[i].score
+          }
+          this.score.push(currentScore) //把每种题型总分存入score
+        })
+        let totalscore= this.score.reduce((prev,cv)=>{
+          return (prev+cv)
+        },0)
+        this.form.totalscore=totalscore
+      })
       this.dialogFormVisible = true
     },
     del(id) {
@@ -378,7 +402,6 @@ export default {
       })
     },
     handleSelectionChange(val) {
-      console.log(val)
       this.multipleSelection = val
     },
     delBatch() {
@@ -393,12 +416,10 @@ export default {
       })
     },
     handleSizeChange(pageSize) {
-      console.log(pageSize)
       this.pageSize = pageSize
       this.load()
     },
     handleCurrentChange(pageNum) {
-      console.log(pageNum)
       this.pageNum = pageNum
       this.load()
     }
