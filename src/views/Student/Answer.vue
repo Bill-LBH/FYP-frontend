@@ -252,6 +252,7 @@ export default {
             father.push(children)
           }
           this.fillAnswer = father
+          console.log(this.fillAnswer)
           let dataInit = this.topic[1]
           this.number = 1
           this.showQuestion = dataInit[0].question
@@ -270,11 +271,9 @@ export default {
         if (this.index <= 0) {
           this.index = 0
         }
-        console.log(`总长度${len}`)
-        console.log(`当前index:${index}`)
+        console.log(this.topic[1][this.index])
         this.title = "Please select right options"
         let Data = this.topic[1]
-        console.log(Data)
         this.showQuestion = Data[this.index].question //获取题目信息
         this.showAnswer = Data[this.index]
         this.number = this.index + 1
@@ -297,11 +296,9 @@ export default {
           index = this.topic[1].length - 1
           this.change(index)
         } else {
-          console.log(`总长度${len}`)
-          console.log(`当前index:${index}`)
           this.title = "Please fill in the answers at the horizontal line"
+          console.log(this.topic[2][index])
           let Data = this.topic[2]
-          console.log(Data)
           this.showQuestion = Data[index].question //获取题目信息
           let part = this.showQuestion.split("()").length - 1 //根据题目中括号的数量确定填空横线数量
           this.part = part
@@ -426,22 +423,24 @@ export default {
             case 4:
               right = "D"
           }
-          if (right === this.topic[1][index].rightAnswer) { // 当前选项与正确答案对比
+          if (right === this.topic[1][index].rightanswer) { // 当前选项与正确答案对比
             finalScore += this.topic[1][index].score // 计算总分数
           }
-          console.log(right, this.topic[1][index].rightAnswer)
         }
         // console.log(topic1Answer)
       })
-      /**计算判断题总分 */
+      /**计算填空题总分 */
           // console.log(`this.fillAnswer${this.fillAnswer}`)
           // console.log(this.topic[2][this.index])
       let fillAnswer = this.fillAnswer
       fillAnswer.forEach((element, index) => { //此处index和 this.index数据不一致，注意
         element.forEach((inner) => {
-          if (this.topic[2][index].answer.includes(inner)) { //判断填空答案是否与数据库一致
-            console.log("正确")
-            finalScore += this.topic[2][this.index].score
+          if(inner!=null&&this.topic[2][index].answer!=null){
+            console.log(inner)
+            console.log(this.topic[2][index].answer)
+            if (this.topic[2][index].answer.includes(inner)) { //判断填空答案是否与数据库一致
+              finalScore += this.topic[2][this.index].score
+            }
           }
         })
       });
@@ -471,7 +470,7 @@ export default {
           let date = new Date()
           this.endTime = this.getTime(date)
           let answerDate = this.endTime.substr(0, 10)
-          this.submitscore.examcode = this.examData.examCode
+          this.submitscore.examcode = this.examData.examcode
           this.submitscore.studentid = this.userInfo.id
           this.submitscore.subject = this.examData.source
           this.submitscore.score = finalScore
@@ -479,7 +478,7 @@ export default {
           request.post("/score", this.submitscore).then(res => {
             if (res.data.code === 200) {
               this.$router.push({
-                path: '/studentScore', query: {
+                path: '/studentscore', query: {
                   score: finalScore,
                   startTime: this.startTime,
                   endTime: this.endTime
@@ -569,12 +568,14 @@ export default {
 .bg {
   background-color: #5188b8 !important;
 }
-
+.fill{
+  height:50px;
+}
 .fill .el-input {
   display: inline-flex;
   width: 150px;
   margin-left: 20px;
-
+  height: 40px;
   .el-input__inner {
     border: 1px solid transparent;
     border-bottom: 1px solid #eee;
