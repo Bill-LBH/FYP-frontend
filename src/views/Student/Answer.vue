@@ -203,7 +203,7 @@ export default {
     }
   },
   created() {
-    this.getCookies()
+    this.getStorage()
     this.getExamData()
     this.showTime()
   },
@@ -218,9 +218,9 @@ export default {
       // 拼接
       return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
     },
-    getCookies() {  //获取cookie
-      this.userInfo.name = this.$cookies.get("UserName")
-      this.userInfo.id = this.$cookies.get("UserId")
+    getStorage() {  //获取cookie
+      this.userInfo.name = localStorage.getItem("UserName")
+      this.userInfo.id = localStorage.getItem("UserId")
     },
     getExamData() { //获取当前试卷所有信息
       let date = new Date()
@@ -436,8 +436,6 @@ export default {
       fillAnswer.forEach((element, index) => { //此处index和 this.index数据不一致，注意
         element.forEach((inner) => {
           if(inner!=null&&this.topic[2][index].answer!=null){
-            console.log(inner)
-            console.log(this.topic[2][index].answer)
             if (this.topic[2][index].answer.includes(inner)) { //判断填空答案是否与数据库一致
               finalScore += this.topic[2][this.index].score
             }

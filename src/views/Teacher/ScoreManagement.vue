@@ -2,7 +2,7 @@
   <div>
 
     <div style="margin: 10px 0">
-      <el-input style="width: 200px" placeholder="Please input student id" suffix-icon="el-icon-search" v-model="scoreid"></el-input>
+      <el-input style="width: 200px" placeholder="Please input student id" suffix-icon="el-icon-search" v-model="studentid"></el-input>
       <el-input style="width: 200px; margin-left: 10px" placeholder="Please input exam code" suffix-icon="el-icon-search" v-model="examcode"></el-input>
       <el-button style="margin-left: 10px" class="ml-5" type="primary" @click="load">Search</el-button>
       <el-button class="el-alert--warning" type="primary" @click="reset">Reset</el-button>
@@ -120,7 +120,7 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          scoreid: this.scoreid,
+          studentid: this.studentid,
           examcode: this.examcode,
         }
       }).then(res => {

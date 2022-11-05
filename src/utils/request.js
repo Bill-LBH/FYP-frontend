@@ -10,7 +10,7 @@ const request = axios.create({
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
-    let student = localStorage.getItem("student") ? JSON.parse(localStorage.getItem("student")) : null
+    let student = localStorage.getItem("student")
     if (student) {
         config.headers['token'] = student.token;  // 设置请求头
     }

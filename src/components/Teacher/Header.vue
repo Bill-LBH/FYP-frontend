@@ -10,13 +10,13 @@
     </div>
     <el-dropdown style="width: 100px; cursor: pointer">
       <div style="display: inline-block">
-        <span>{{ teacher.username }}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
+        <span>{{ UserName }}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
       </div>
       <el-dropdown-menu slot="dropdown" style="width: 100px; text-align: center">
-        <el-dropdown-item style="font-size: 14px; padding: 5px 0">
-          <router-link to="/person">Personal info</router-link>
+        <el-dropdown-item style="font-size: 17px; padding: 5px 0">
+          <router-link to="/person">Info</router-link>
         </el-dropdown-item>
-        <el-dropdown-item style="font-size: 14px; padding: 5px 0">
+        <el-dropdown-item style="font-size: 17px; padding: 5px 0">
           <span style="text-decoration: none" @click="logout">Exit</span>
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -46,15 +46,16 @@ export default {
   },
   data() {
     return {
-      teacher: localStorage.getItem("teacher") ? JSON.parse(localStorage.getItem("teacher")) : {},
+      UserName: localStorage.getItem("UserName"),
       routerpath: []
     }
   },
 
   methods: {
     logout() {
-      this.$router.push("/login")
-      localStorage.removeItem("teacher")
+      this.$router.push("/")
+      localStorage.removeItem("UserName")
+      localStorage.removeItem("UserId")
       this.$message.success("Exit successfully")
     },
     Collapse() {

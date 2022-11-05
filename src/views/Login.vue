@@ -54,9 +54,8 @@ export default {
               if(res.code!=200) {
                 this.$message.error("Student name or password error")
               } else {
-                console.log(res.data)
-                this.$cookies.set("UserName",res.data.username)
-                this.$cookies.set("UserId",res.data.id)
+                localStorage.setItem("UserName",res.data.username)
+                localStorage.setItem("UserId",res.data.id)
                 this.$router.push("/index")
               }
             })
@@ -66,6 +65,9 @@ export default {
               if(res.code!=200) {
                 this.$message.error("Teacher name or password error")
               } else {
+                console.log(res.data)
+                localStorage.setItem("UserName",res.data.username)
+                localStorage.setItem("UserId",res.data.id)
                 this.$router.push("/teacher")
               }
             })
