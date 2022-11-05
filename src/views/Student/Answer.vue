@@ -219,8 +219,8 @@ export default {
       return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
     },
     getCookies() {  //获取cookie
-      this.userInfo.name = this.$cookies.get("cname")
-      this.userInfo.id = this.$cookies.get("cid")
+      this.userInfo.name = this.$cookies.get("UserName")
+      this.userInfo.id = this.$cookies.get("UserId")
     },
     getExamData() { //获取当前试卷所有信息
       let date = new Date()
@@ -459,17 +459,15 @@ export default {
           finalScore += this.topic[3][index].score // 计算总分数
         }
       })
-      console.log(`目前总分${finalScore}`)
       if (this.time !== 0) {
         this.$confirm("Did you turn in your paper early before the end of the exam?", "Tips", {
           confirmButtonText: 'Yes',
           cancelButtonText: 'No',
           type: 'warning'
         }).then(() => {
-          console.log("交卷")
           let date = new Date()
           this.endTime = this.getTime(date)
-          let answerDate = this.endTime.substr(0, 10)
+          let answerDate = this.endTime
           this.submitscore.examcode = this.examData.examcode
           this.submitscore.studentid = this.userInfo.id
           this.submitscore.subject = this.examData.source

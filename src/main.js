@@ -9,6 +9,7 @@ import store from '@/vuex/store'
 // import Vuex from 'vuex';
 import axios from "axios";
 import VueCookies from 'vue-cookies';
+import './assets/font.css';
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 

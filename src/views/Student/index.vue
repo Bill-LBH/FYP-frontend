@@ -1,7 +1,7 @@
 <template>
   <el-container>
-    <el-header>
-<Navigation/>
+    <el-header style="padding: 0">
+      <Navigation/>
     </el-header>
     <el-main class="main">
       <router-view/>
@@ -11,6 +11,7 @@
 
 <script>
 import Navigation from "@/components/Student/Navigation";
+
 export default {
   name: "index",
   components: {
@@ -20,9 +21,9 @@ export default {
 </script>
 
 <style scoped>
-.main{
+.main {
   background-color: #eee;
-  height:700px;
+  height: 700px;
 }
 
 </style>

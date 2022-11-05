@@ -2,14 +2,13 @@
   <div>
 
     <div style="margin: 10px 0">
-      <el-input style="width: 200px" placeholder="Please input score id" suffix-icon="el-icon-search" v-model="scoreid"></el-input>
+      <el-input style="width: 200px" placeholder="Please input student id" suffix-icon="el-icon-search" v-model="scoreid"></el-input>
       <el-input style="width: 200px; margin-left: 10px" placeholder="Please input exam code" suffix-icon="el-icon-search" v-model="examcode"></el-input>
       <el-button style="margin-left: 10px" class="ml-5" type="primary" @click="load">Search</el-button>
       <el-button class="el-alert--warning" type="primary" @click="reset">Reset</el-button>
     </div>
 
     <div style="margin: 10px 0">
-      <el-button type="primary" @click="handleAdd">Add<i class="el-icon-circle-plus-outline"></i></el-button>
       <el-popconfirm
           class="ml-5"
           confirm-button-text='Yes'
@@ -35,7 +34,7 @@
       </el-table-column>
       <el-table-column prop="score" label="Score" width="140">
       </el-table-column>
-      <el-table-column prop="answerdate" label="Answer Date" width="140">
+      <el-table-column prop="answerdate" label="Submit moment" width="140">
       </el-table-column>
       <el-table-column label="Operation"  width="180" align="center">
         <template v-slot="scope">
@@ -71,10 +70,7 @@
 <!--        <el-form-item label="Score Id">-->
 <!--          <el-input v-model="form.scoreid" autocomplete="off"></el-input>-->
 <!--        </el-form-item>-->
-        <el-form-item label="Exam code">
-          <el-input v-model="form.examcode" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="Question">
+        <el-form-item label="Student Id">
           <el-input v-model="form.studentid" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Subject">
@@ -82,9 +78,6 @@
         </el-form-item>
         <el-form-item label="Score">
           <el-input v-model="form.score" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="Answer Date">
-          <el-input v-model="form.answerdate" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

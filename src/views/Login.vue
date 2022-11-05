@@ -50,11 +50,13 @@ export default {
       this.$refs['studentForm'].validate((valid) => {
         if (valid) {  // 表单校验合法
           if(this.identity=="1"){
-
             this.request.post("/student/login", this.user).then(res => {
               if(res.code!=200) {
                 this.$message.error("Student name or password error")
               } else {
+                console.log(res.data)
+                this.$cookies.set("UserName",res.data.username)
+                this.$cookies.set("UserId",res.data.id)
                 this.$router.push("/index")
               }
             })
