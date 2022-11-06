@@ -472,12 +472,16 @@ export default {
           this.submitscore.score = finalScore
           this.submitscore.answerdate = answerDate
           request.post("/score", this.submitscore).then(res => {
-            if (res.data.code === 200) {
+            console.log(res)
+            if (res.code == 200) {
               this.$router.push({
                 path: '/studentscore', query: {
                   score: finalScore,
                   startTime: this.startTime,
-                  endTime: this.endTime
+                  endTime: this.endTime,
+                  subject:this.examData.source,
+                  totalscore:this.examData.totalscore,
+                  totaltime:this.examData.totaltime
                 }
               })
             }
