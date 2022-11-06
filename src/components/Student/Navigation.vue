@@ -14,7 +14,7 @@
                  text-color="#cfd7e7"
                  active-text-color="#ffd04b">
           <el-menu-item index="/myexam" style="font-size: 15px;font-weight: bold">Exam List</el-menu-item>
-          <el-menu-item index="/myscore" style="font-size: 15px;font-weight: bold">My Score</el-menu-item>
+          <el-menu-item index="/myscore" style="font-size: 15px;font-weight: bold">Score List</el-menu-item>
           <el-menu-item style="position: absolute; right:0;">
             <el-dropdown style="width: 100px; cursor: pointer">
               <div style="display: inline-block">
