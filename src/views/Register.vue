@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="registerwrapper">
     <div style="margin: 100px auto; background-color: #fff; width: 350px; height: 500px; padding: 20px; border-radius: 10px">
       <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>Register</b></div>
       <el-form :model="student" :rules="rules" ref="studentForm">
@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style>
-.wrapper {
+.registerwrapper {
   height: 100vh;
   background-image: linear-gradient(to bottom right, #FC466B , #3F5EFB);
   overflow: hidden;

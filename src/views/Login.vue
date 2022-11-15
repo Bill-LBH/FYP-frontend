@@ -29,6 +29,15 @@
 <script>
 export default {
   name: "Login",
+  created() {
+    let user = JSON.parse(localStorage.getItem("User"))
+    if(user&&localStorage.getItem("Type")==="1"){
+      this.$router.push("/index")
+    }
+    else if(user&&localStorage.getItem("Type")==="2"){
+      this.$router.push("/teacher")
+    }
+  },
   data() {
     return {
       user: {},
@@ -54,8 +63,10 @@ export default {
               if(res.code!=200) {
                 this.$message.error("Student name or password error")
               } else {
+                localStorage.setItem("User",JSON.stringify(res.data))
                 localStorage.setItem("UserName",res.data.username)
                 localStorage.setItem("UserId",res.data.id)
+                localStorage.setItem("Type",1)
                 this.$router.push("/index")
               }
             })
@@ -65,9 +76,10 @@ export default {
               if(res.code!=200) {
                 this.$message.error("Teacher name or password error")
               } else {
-                console.log(res.data)
+                localStorage.setItem("User",JSON.stringify(res.data))
                 localStorage.setItem("UserName",res.data.username)
                 localStorage.setItem("UserId",res.data.id)
+                localStorage.setItem("Type",2)
                 this.$router.push("/teacher")
               }
             })

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="verifywrapper">
     <div style="margin:200px 638px 100px 638px; background-color: #fff; width: 260px; height: 180px; padding: 20px; border-radius: 10px">
       <el-form :model="student" :rules="rules" ref="studentForm">
         <el-form-item prop="id" style="margin-top: 30px">
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+.verifywrapper {
   height: 100vh;
   background-image: linear-gradient(to bottom right, #fffb0d , #3F5EFB);
   overflow: hidden;

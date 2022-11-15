@@ -1,5 +1,6 @@
 import axios from 'axios'
-
+import ElementUI from "element-ui";
+import router from '../router'
 const request = axios.create({
     baseURL: 'http://localhost:9090/',
     timeout: 5000
@@ -10,9 +11,9 @@ const request = axios.create({
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
-    let student = localStorage.getItem("student")
-    if (student) {
-        config.headers['token'] = student.token;  // 设置请求头
+    let user = JSON.parse(localStorage.getItem("User"))
+    if (user) {
+        config.headers['token'] = user.token;  // 设置请求头
     }
     // config.headers['token'] = user.token;  // 设置请求头
     return config
@@ -32,6 +33,13 @@ request.interceptors.response.use(
         // 兼容服务端返回的字符串数据
         if (typeof res === 'string') {
             res = res ? JSON.parse(res) : res
+        }
+        if (res.code === '401') {
+            router.push("/")
+            ElementUI.Message({
+                message: res.msg,
+                type: 'error'
+            });
         }
         return res;
     },

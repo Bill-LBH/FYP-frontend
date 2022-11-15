@@ -52,6 +52,8 @@ export default {
       this.$router.push("/")
       localStorage.removeItem("UserName")
       localStorage.removeItem("UserId")
+      localStorage.removeItem("User")
+      localStorage.removeItem("Type")
       this.$message.success("Exit successfully")
     },
   }
