@@ -36,6 +36,10 @@ request.interceptors.response.use(
         }
         if (res.code === '401') {
             router.push("/")
+            localStorage.removeItem("UserName")
+            localStorage.removeItem("UserId")
+            localStorage.removeItem("User")
+            localStorage.removeItem("Type")
             ElementUI.Message({
                 message: res.msg,
                 type: 'error'

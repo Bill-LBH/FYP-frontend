@@ -29,11 +29,14 @@ export default {
     verify(){
       this.$refs['studentForm'].validate((valid) => {
         if (valid) {
-          this.request.get("/student/"+ this.student.id).then(res => {
+          this.request.get("/student/verify/"+ this.student.id).then(res => {
             if(!res) {
               this.$message.error("Student doesn't exist")
-            } else {
+            } else if(res.password==null){
               this.$router.push({path:"/register",query:{id:this.student.id}})
+            }
+            else if (res.password!=null){
+              this.$message.error("Student already register")
             }
           })
         }// 表单校验合法

@@ -48,7 +48,7 @@ export default {
         ],
         email: [
           { required: true, message: 'Please input your email', trigger: 'blur' },
-          { min: 1, max: 20, message: 'Length is between 1 and 25 characteristics', trigger: 'blur' }
+          { min: 1, max: 25, message: 'Length is between 1 and 25 characteristics', trigger: 'blur' }
         ],
         phone: [
           { required: true, message: 'Please input your phone', trigger: 'blur' },
@@ -66,9 +66,10 @@ export default {
             this.$message.error("The password entered twice does not match")
             return false
           }
-          this.request.post("/student", this.student).then(res => {
+          this.request.post("/student/register", this.student).then(res => {
             if(res) {
               this.$message.success("Register successfully")
+              this.$router.push("/")
             } else {
               this.$message.error(res.msg)
             }

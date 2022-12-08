@@ -66,7 +66,8 @@ const routes = [
             {path: '/myexam', name: 'myexam', component: () => import( '../views/Student/MyExam')},
             {path: '/myscore', name: 'myscore', component: () => import( '../views/Student/MyScore')},
             {path: '/examMsg', name: 'Exam_Message', component: () => import( '../views/Student/examMsg')},
-            {path: '/studentscore', name: 'StudentScore', component: () =>import('../views/Student/StudentScore')}
+            {path: '/studentscore', name: 'StudentScore', component: () =>import('../views/Student/StudentScore')},
+            {path: '/person', name: 'StudentInfo', component: () =>import('../views/Student/StudentInfo')}
         ]
     },
     {path: '/answer', name: 'Answer', component: () => import( '../views/Student/Answer')},

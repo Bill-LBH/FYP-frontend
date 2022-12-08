@@ -30,6 +30,11 @@
 
   <el-table :data="tableData" border stripe :header-cell-class-name="headerBg" @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="55"></el-table-column>
+    <el-table-column prop="url" label="Avatar" width="120">
+      <template   slot-scope="scope">
+        <img :src="scope.row.url"  min-width="70" height="70" />
+      </template>
+    </el-table-column>
     <el-table-column prop="id" label="Student id" width="140">
     </el-table-column>
     <el-table-column prop="username" label="Name" width="140">
@@ -79,13 +84,24 @@
   </div>
   <el-dialog title="New student Information" :visible.sync="dialogFormVisible" width="30%" >
     <el-form label-width="100px" size="small">
+      <el-form-item label="avatar">
+        <el-upload
+            class="avatar-uploader"
+            action="http://localhost:9090/file/upload"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload">
+          <img v-if="form.url" :src="form.url" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </el-form-item>
       <el-form-item label="Id">
         <el-input v-model="form.id" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="Name">
         <el-input v-model="form.username" autocomplete="off"></el-input>
       </el-form-item>
-      \<el-form-item label="Gender">
+      <el-form-item label="Gender">
       <el-select v-model="form.gender" placeholder="Please select difficulty of this question">
         <el-option
             v-for="item in genderoptions"
@@ -128,6 +144,7 @@ export default {
   data(){
     return{
       tableData: [],
+      avatar: null,
       total :0,
       pageNum: 1,
       pageSize: 2,
@@ -224,6 +241,21 @@ export default {
     this.load()
   },
   methods: {
+    handleAvatarSuccess(res) {
+      this.form.url = res
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('Upload avatar picture can only be JPG format!');
+      }
+      if (!isLt2M) {
+        this.$message.error('Upload avatar image size cannot exceed 2MB!');
+      }
+      return isJPG && isLt2M;
+    },
     load() {
       request.get("/student/page", {
         params: {
@@ -234,11 +266,8 @@ export default {
           username: this.username,
         }
       }).then(res => {
-        console.log(res)
-
         this.tableData = res.records
         this.total = res.total
-
       })
       /*      fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+"&pageSize=" + this.pageSize + "&username=" + this.username)
                 .then(res => res.json()).then(res => {
@@ -265,6 +294,7 @@ export default {
       window.open("http://localhost:9090/student/export")
     },
     save() {
+      console.log(this.form)
       request.post("/student", this.form).then(res => {
         if (res) {
           this.$message.success("Save successfully")
@@ -290,7 +320,6 @@ export default {
       })
     },
     handleSelectionChange(val) {
-      console.log(val)
       this.multipleSelection = val
     },
     delBatch() {
@@ -310,7 +339,6 @@ export default {
       this.load()
     },
     handleCurrentChange(pageNum) {
-      console.log(pageNum)
       this.pageNum = pageNum
       this.load()
     }
@@ -321,5 +349,27 @@ export default {
 </script>
 
 <style>
-
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 </style>
