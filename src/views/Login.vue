@@ -32,7 +32,7 @@ export default {
   created() {
     let user = JSON.parse(localStorage.getItem("User"))
     if(user&&localStorage.getItem("Type")==="1"){
-      this.$router.push("/index")
+      this.$router.push("/face")
     }
     else if(user&&localStorage.getItem("Type")==="2"){
       this.$router.push("/teacher")

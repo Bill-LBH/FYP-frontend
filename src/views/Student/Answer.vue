@@ -252,7 +252,6 @@ export default {
             father.push(children)
           }
           this.fillAnswer = father
-          console.log(this.fillAnswer)
           let dataInit = this.topic[1]
           this.number = 1
           this.showQuestion = dataInit[0].question
@@ -271,7 +270,6 @@ export default {
         if (this.index <= 0) {
           this.index = 0
         }
-        console.log(this.topic[1][this.index])
         this.title = "Please select right options"
         let Data = this.topic[1]
         this.showQuestion = Data[this.index].question //获取题目信息
@@ -297,7 +295,6 @@ export default {
           this.change(index)
         } else {
           this.title = "Please fill in the answers at the horizontal line"
-          console.log(this.topic[2][index])
           let Data = this.topic[2]
           this.showQuestion = Data[index].question //获取题目信息
           let part = this.showQuestion.split("()").length - 1 //根据题目中括号的数量确定填空横线数量
@@ -318,11 +315,8 @@ export default {
           this.index = this.topic[2].length - 1
           this.fill(this.index)
         } else {
-          console.log(`总长度${len}`)
-          console.log(`当前index:${this.index}`)
           this.title = "Please make right decision"
           let Data = this.topic[3]
-          console.log(Data)
           this.showQuestion = Data[index].question //获取题目信息
           this.number = this.topicCount[0] + this.topicCount[1] + index + 1
         }
@@ -472,7 +466,6 @@ export default {
           this.submitscore.score = finalScore
           this.submitscore.answerdate = answerDate
           request.post("/score", this.submitscore).then(res => {
-            console.log(res)
             if (res.code == 200) {
               this.$router.push({
                 path: '/studentscore', query: {
@@ -487,7 +480,6 @@ export default {
             }
           })
         }).catch(() => {
-          console.log("继续答题")
         })
       }
     },
@@ -501,7 +493,6 @@ export default {
             message: 'Attention candidates, there are 10 minutes left in the examination time！！！'
           })
           if (this.time === 0) {
-            console.log("The exam time is up, and the exam is mandatory.")
           }
         }
       }, 1000 * 60)

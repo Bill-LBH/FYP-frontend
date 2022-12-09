@@ -22,11 +22,6 @@
           </template>
         </el-table-column>
         <el-table-column prop="score" label="Score" width="200"></el-table-column>
-        <el-table-column label="Pass" width="100">
-          <template slot-scope="scope">
-            <el-tag :type="scope.row.score>= 60 ? 'success' : 'danger'">{{scope.row.score >= 60 ? "pass" : "fail"}}</el-tag>
-          </template>
-        </el-table-column>
       </el-table>
       <el-row type="flex" justify="center" align="middle" class="pagination">
         <el-pagination

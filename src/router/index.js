@@ -11,6 +11,11 @@ const routes = [
         component: () => import( '../views/Login.vue'),
     },
     {
+        path: '/face',
+        name: 'Face recognition',
+        component: () => import( '../views/Student/Face'),
+    },
+    {
         path: '/teacher',
         name:'Homepage',
         component: () => import( '../views/Teacher/TeacherFunction.vue'),

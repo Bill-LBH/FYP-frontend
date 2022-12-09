@@ -1,16 +1,13 @@
 <template>
   <div>
     <el-card>
-      <el-descriptions class="margin-top" title="简介" :column="2" border>
-        <template slot="extra">
-          <el-button type="primary" size="small">Edit</el-button>
-        </template>
+      <el-descriptions class="margin-top" title="Info" :column="2" border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-picture-outline"></i>
             Avatar
           </template>
-          <img class="img" :src="avatar" alt="" />
+          <img class="img" :src="avatar" alt="" style="height: 120px; weight: 60px"/>
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -50,28 +47,28 @@
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
-            <i class="el-icon-s-custom"></i>
+            <i class="el-icon-s-home"></i>
             Address
           </template>
           {{ address }}
         </el-descriptions-item>
         <el-descriptions-item>
         <template slot="label">
-          <i class="el-icon-s-custom"></i>
+          <i class="el-icon-s-cooperation"></i>
           Major
         </template>
         {{ major }}
       </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
-            <i class="el-icon-s-custom"></i>
+            <i class="el-icon-date"></i>
             Year
           </template>
           {{ year }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
-            <i class="el-icon-s-custom"></i>
+            <i class="el-icon-school"></i>
             Institute
           </template>
           {{ institute }}
@@ -120,7 +117,6 @@ export default {
             this.institute=res.institute;
           })
           .catch((err) => {
-            console.log(err);
           });
     },
   },

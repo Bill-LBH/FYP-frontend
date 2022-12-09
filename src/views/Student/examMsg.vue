@@ -39,31 +39,16 @@
               <template slot="title" name="1">
                 <div class="titlei">Number of Multi-choice question: {{topicCount[0]}}</div>
               </template>
-              <div class="contenti">
-                <ul class="question" v-for="(list, index) in topic[1]" :key="index">
-                  <li>{{index+1}}. {{list.question}}</li>
-                </ul>
-              </div>
             </el-collapse-item>
             <el-collapse-item>
               <template slot="title" name="2">
                 <div class="titlei">Number of Fill-in question: {{topicCount[1]}}</div>
               </template>
-              <div class="contenti">
-                <ul class="question" v-for="(list, index) in topic[2]" :key="index">
-                  <li>{{topicCount[0]+index+1}}. {{list.question}}</li>
-                </ul>
-              </div>
             </el-collapse-item>
             <el-collapse-item>
               <template slot="title" name="3">
                 <div class="titlei">Number of Judge question: {{topicCount[2]}}</div>
               </template>
-              <div class="contenti">
-                <ul class="question" v-for="(list, index) in topic[3]" :key="index">
-                  <li>{{topicCount[0]+topicCount[1]+index+1}}. {{list.question}}</li>
-                </ul>
-              </div>
             </el-collapse-item>
           </el-collapse>
         </el-collapse-item>
