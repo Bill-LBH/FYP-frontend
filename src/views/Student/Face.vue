@@ -6,18 +6,29 @@
     </Select>
     <div class="testTracking">
 
+
       <!--canvas截取流-->
       <canvas style="display:none; margin-left: 900px" ref="canvas" :width="videoWidth" :height="videoHeight"></canvas>
       <!--图片展示-->
+      <div style="margin-top: 330px;margin-left: 400px;">Video</div>
       <video ref="video" id="video" :width="videoWidth" :height="videoHeight" autoplay style="display: block; margin-left: 900px"></video>
       <canvas id="canvas"  :width="videoWidth" :height="videoHeight" style="margin-left: 900px"></canvas>
       <!--开启摄像头-->
-      <el-button  type="primary" style="width: 120px;margin-top: 400px" @click="callCamera">Open camera</el-button>
+      <el-button  type="primary" style="width: 120px;margin-top: 400px;margin-left: 400px" @click="callCamera">Open camera</el-button>
       <!--关闭摄像头-->
-      <el-button  type="primary"  @click="closeCamera" style="margin-top: 450px;width: 120px">Close camera</el-button>
-      <el-button  type="primary"  @click="setImage" style="margin-top: 500px;width: 120px">Take picture</el-button>
+      <el-button  type="primary"  @click="closeCamera" style="margin-top: 400px;width: 120px;margin-left: 700px">Close camera</el-button>
+      <el-button  type="primary"  @click="setImage" style="margin-top: 400px;width: 120px;margin-left: 1000px">Take picture</el-button>
       <!--确认-->
-      <img :src="imgBase64" alt="" class="tx_img" style="margin-left: 200px;width: 450px;height: 300px">
+      <div style="margin-top: 330px;margin-left: 1100px;">Screenshot</div>
+      <img :src="imgSrc" alt="" class="tx_img" style="margin-left: 200px;width: 450px;height: 300px">
+      <div class="msg">
+        <p class="title">Instruction：</p>
+        <ul>
+          <li><i class="iconfont icon-flag"></i>Click open camera button to open the camera of your computer</li>
+          <li><i class="iconfont icon-flag"></i>Click close camera button to close the camera of your computer</li>
+          <li><i class="iconfont icon-flag"></i>Click take picture button to verify your identity</li>
+        </ul>
+      </div>
     </div>
 
 
@@ -39,7 +50,6 @@ export default {
       modelSel:'',//
       myInterval: null,
       imgSrc: '',
-      imgBase64:'',
       isHasFace:false,//默认没有人脸
       tracker:null,
     }
@@ -50,11 +60,11 @@ export default {
     this.callCamera();
     this.changePhoto();
     this.checkFace();
-    if(this.src!='user'){
-      this.myInterval = setInterval(()=>{
-        this.setImage();
-      },2000)
-    }
+    // if(this.src!='user'){
+    //   this.myInterval = setInterval(()=>{
+    //     this.setImage();
+    //   },2000)
+    // }
   },
   methods: {
     // 调用摄像头
@@ -73,7 +83,6 @@ export default {
     },
     // 拍照
     setImage () {
-      console.log(this.isHasFace);
       if(!this.isHasFace){
         return false;
       }
@@ -86,10 +95,22 @@ export default {
       // this.$emit('refreshDataList', imgBase64)
       // return true;
       let imgBase64 = this.$refs["canvas"].toDataURL("image/jpeg", 0.7);
+      this.imgSrc = imgBase64;
       let str = imgBase64.replace("data:image/jpeg;base64,", "");
       this.base64 = str;
       this.request.post("/img",this.base64).then(res=>{
         this.acc = res.acc;
+        console.log(this.acc)
+        if(this.acc>0.6)
+        {
+          this.$message.success("Verification successfully")
+          localStorage.setItem("Verification",1)
+          this.$router.push("/index")
+        }
+        else
+        {
+          this.$message.error("Verification failed,please try again")
+        }
       })
       // const { data: res } = await this.$http.post("/img", this.base64);
       /**------------到这里为止，就拿到了base64位置的地址，后面是下载功能----------*/
@@ -242,6 +263,28 @@ export default {
   }
   .buttonDiv {
     bottom: 10px;
+  }
+  .msg {
+    .title {
+      font-size: 16px;
+      color: #000;
+      margin-top: 500px;
+      margin-left: 500px;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      margin-left: 500px;
+      overflow: hidden;
+    }
+    li {
+      margin-top: 10px;
+      font-size: 14px;
+      color: lightcoral;
+      cursor: pointer;
+      display: inline-block;
+    }
   }
 }
 </style>

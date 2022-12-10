@@ -31,8 +31,8 @@ export default {
   name: "Login",
   created() {
     let user = JSON.parse(localStorage.getItem("User"))
-    if(user&&localStorage.getItem("Type")==="1"){
-      this.$router.push("/face")
+    if(user&&localStorage.getItem("Type")==="1"&&localStorage.getItem("Verification")==="1"){
+      this.$router.push("/index")
     }
     else if(user&&localStorage.getItem("Type")==="2"){
       this.$router.push("/teacher")
@@ -67,7 +67,7 @@ export default {
                 localStorage.setItem("UserName",res.data.username)
                 localStorage.setItem("UserId",res.data.id)
                 localStorage.setItem("Type",1)
-                this.$router.push("/index")
+                this.$router.push("/face")
               }
             })
           }

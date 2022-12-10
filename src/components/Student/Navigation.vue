@@ -54,6 +54,7 @@ export default {
       localStorage.removeItem("UserId")
       localStorage.removeItem("User")
       localStorage.removeItem("Type")
+      localStorage.removeItem("Verification")
       this.$message.success("Exit successfully")
     },
   }

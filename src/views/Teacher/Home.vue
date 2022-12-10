@@ -7,8 +7,8 @@
     <div class="msg">
       <p class="title">Academic affairs：</p>
       <ul>
-        <li @click="openMsg()"><i class="iconfont icon-flag"></i>Public holiday notice</li>
-        <li @click="openMsg()"><i class="iconfont icon-flag"></i>Process of FYP presentation</li>
+        <li @click="openMsg1()"><i class="iconfont icon-flag"></i>Public holiday notice</li>
+        <li @click="openMsg2()"><i class="iconfont icon-flag"></i>Process of FYP presentation</li>
       </ul>
     </div>
   </section>
@@ -34,8 +34,13 @@ export default {
       this.user.userName = userName
       this.user.userId = userId
     },
-    openMsg() {
-      this.$alert('','清明节放假通知',{
+    openMsg1() {
+      this.$alert('Dear professor,Monday is public holiday, please arrange the replacement class','Public holiday notice',{
+        confirmButtonText: 'OK'
+      })
+    },
+    openMsg2() {
+      this.$alert('Dear professor,Please check the thesis of final year student','Process of FYP presentation',{
         confirmButtonText: 'OK'
       })
     }
