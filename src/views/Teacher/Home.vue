@@ -35,12 +35,14 @@ export default {
       this.user.userId = userId
     },
     openMsg1() {
-      this.$alert('Dear professor,Monday is public holiday, please arrange the replacement class','Public holiday notice',{
+      this.$alert('Dear professor,' +
+          'Monday is public holiday, please arrange the replacement class','Public holiday notice',{
         confirmButtonText: 'OK'
       })
     },
     openMsg2() {
-      this.$alert('Dear professor,Please check the thesis of final year student','Process of FYP presentation',{
+      this.$alert('Dear professor,' +
+          'Please check the thesis of final year student','Process of FYP presentation',{
         confirmButtonText: 'OK'
       })
     }

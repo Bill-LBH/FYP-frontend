@@ -36,11 +36,11 @@ export default {
       rules: {
         password: [
           { required: true, message: 'Please input password', trigger: 'blur' },
-          { min: 1, max: 20, message: 'Length is between 1 and 20 characteristics', trigger: 'blur' }
+          { min: 5, max: 16, message: 'Length is between 5 and 16 characteristics', trigger: 'blur' }
         ],
         confirmPassword: [
           { required: true, message: 'Please input password', trigger: 'blur' },
-          { min: 1, max: 20, message: 'Length is between 1 and 20 characteristics', trigger: 'blur' }
+          { min: 5, max: 16, message: 'Length is between 5 and 16 characteristics', trigger: 'blur' }
         ],
         address: [
           { required: true, message: 'Please input your address', trigger: 'blur' },

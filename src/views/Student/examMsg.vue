@@ -29,7 +29,7 @@
         <el-collapse-item class="header" name="0">
           <template slot="title" class="stitle" >
             <div class="title">
-              <span style="width: 550px">{{examData.source}}</span>
+              <span style="width: 530px">{{examData.source}}</span>
               <span class="time">{{examData.totalscore}} Points / {{examData.totaltime}} Minutes</span>
               <el-button type="primary" size="small">Details of questions</el-button>
             </div>

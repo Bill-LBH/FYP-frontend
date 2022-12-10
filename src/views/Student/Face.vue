@@ -14,10 +14,10 @@
       <video ref="video" id="video" :width="videoWidth" :height="videoHeight" autoplay style="display: block; margin-left: 900px"></video>
       <canvas id="canvas"  :width="videoWidth" :height="videoHeight" style="margin-left: 900px"></canvas>
       <!--开启摄像头-->
-      <el-button  type="primary" style="width: 120px;margin-top: 400px;margin-left: 400px" @click="callCamera">Open camera</el-button>
+      <el-button  type="primary" style="width: 120px;margin-top: 420px;margin-left: 400px" @click="callCamera">Open camera</el-button>
       <!--关闭摄像头-->
-      <el-button  type="primary"  @click="closeCamera" style="margin-top: 400px;width: 120px;margin-left: 700px">Close camera</el-button>
-      <el-button  type="primary"  @click="setImage" style="margin-top: 400px;width: 120px;margin-left: 1000px">Take picture</el-button>
+      <el-button  type="primary"  @click="closeCamera" style="margin-top: 420px;width: 120px;margin-left: 700px">Close camera</el-button>
+      <el-button  type="primary"  @click="setImage" style="margin-top: 420px;width: 120px;margin-left: 1000px">Take picture</el-button>
       <!--确认-->
       <div style="margin-top: 330px;margin-left: 1100px;">Screenshot</div>
       <img :src="imgSrc" alt="" class="tx_img" style="margin-left: 200px;width: 450px;height: 300px">
@@ -100,11 +100,11 @@ export default {
       this.base64 = str;
       this.request.post("/img",this.base64).then(res=>{
         this.acc = res.acc;
-        console.log(this.acc)
         if(this.acc>0.6)
         {
           this.$message.success("Verification successfully")
           localStorage.setItem("Verification",1)
+          this.closeCamera()
           this.$router.push("/index")
         }
         else
@@ -237,11 +237,14 @@ export default {
 
 
   },
-
+  cancalCloseVideo(){
+    this.MediaStreamTrack && this.MediaStreamTrack.stop();
+  },
   beforeDestroy () {
     clearInterval(this.myInterval);
     // 停止侦测
     this.trackerTask.stop();
+    this.cancalCloseVideo();
   }
 
 }
@@ -265,17 +268,16 @@ export default {
     bottom: 10px;
   }
   .msg {
+    margin-top: 500px;
+    margin-left: 500px;
     .title {
       font-size: 16px;
       color: #000;
-      margin-top: 500px;
-      margin-left: 500px;
     }
     ul {
       display: flex;
       flex-direction: column;
       width: 500px;
-      margin-left: 500px;
       overflow: hidden;
     }
     li {

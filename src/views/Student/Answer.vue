@@ -1,4 +1,5 @@
 <template>
+  <div class="full-screen">
   <div id="answer">
     <!--顶部信息栏-->
     <div class="top">
@@ -155,16 +156,19 @@
       </transition>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 import request from "@/utils/request";
 import store from '@/vuex/store';
-
+import screenfull from "screenfull";
 export default {
   name: "Answer",
   data() {
     return {
+      // 控制全屏
+      fullscreen: false,
       startTime: null, //考试开始时间
       endTime: null, //考试结束时间
       time: null, //考试持续时间
@@ -199,15 +203,26 @@ export default {
       fillAnswer: [[]], //二维数组保存所有填空题答案
       judgeAnswer: [], //保存所有判断题答案
       topic1Answer: [],  //学生选择题作答编号,
-      rightAnswer: ''
+      rightAnswer: '',
+      fullScreenFlag: false, // 全屏/退出全屏
     }
   },
   created() {
     this.getStorage()
     this.getExamData()
     this.showTime()
+    this.fullScreen()
   },
+  mounted() {
+    this.exit()
+  },
+
   methods: {
+
+    exit(){
+      screenfull.request()
+      console.log(1)
+    },
     getTime(date) { //日期格式化
       let year = date.getFullYear()
       let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
@@ -397,6 +412,9 @@ export default {
       //     this.topic[3][this.index]["isMark"] = true //判断题标记
       // }
     },
+    fullScreen() {
+      screenfull.request(); // 全屏
+    },
     commit() { //答案提交计算分数
       /* 计算选择题总分 */
       let topic1Answer = this.topic1Answer
@@ -486,12 +504,8 @@ export default {
     showTime() { //倒计时
       setInterval(() => {
         this.time -= 1
-        if (this.time === 10) {
-          this.$message({
-            showClose: true,
-            type: 'error',
-            message: 'Attention candidates, there are 10 minutes left in the examination time！！！'
-          })
+        if (this.time === 3) {
+          this.$message.error('Attention candidates, there are 3 minutes left in the examination time！！！')
           if (this.time === 0) {
           }
         }

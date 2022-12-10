@@ -77,7 +77,7 @@
           <el-input v-model="form.subject" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Score">
-          <el-input v-model="form.score" autocomplete="off"></el-input>
+          <el-input v-model="form.score" type="number" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -98,7 +98,7 @@ export default {
       tableData: [],
       total :0,
       pageNum: 1,
-      pageSize: 2,
+      pageSize: 10,
       scoreid:"",
       examcode:"",
       studentid: "",

@@ -27,7 +27,7 @@
       <el-table-column type="selection" width="50"></el-table-column>
 <!--      <el-table-column prop="examcode" label="Exam code" width="120">-->
 <!--      </el-table-column>-->
-      <el-table-column prop="source" label="Course name" width="180">
+      <el-table-column prop="source" label="Course name" width="160">
       </el-table-column>
       <el-table-column prop="paperid" label="Paper id" width="100">
       </el-table-column>
@@ -35,13 +35,13 @@
       </el-table-column>
       <el-table-column prop="totaltime" label="Total time (minutes)" width="160">
       </el-table-column>
-      <el-table-column prop="grade" label="Grade" width="100">
+      <el-table-column prop="grade" label="Student Grade" width="140">
       </el-table-column>
-      <el-table-column prop="term" label="Term" width="100">
+      <el-table-column prop="term" label="Semester" width="100">
       </el-table-column>
-      <el-table-column prop="major" label="Major" width="160">
+      <el-table-column prop="major" label="Major" width="120">
       </el-table-column>
-      <el-table-column prop="totalscore" label="Total score" width="140">
+      <el-table-column prop="totalscore" label="Total score" width="100">
       </el-table-column>
       <el-table-column label="Operation"  width="200" align="center">
         <template v-slot="scope">
@@ -89,7 +89,7 @@
           </el-col>
         </el-form-item>
         <el-form-item label="Total time (minutes)">
-          <el-input v-model="form.totaltime" autocomplete="off"></el-input>
+          <el-input type="number" v-model="form.totaltime" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Grade">
           <el-select v-model="form.grade" placeholder="Please select exam grade">
@@ -153,11 +153,10 @@ export default {
   name: "ExamManagement",
   data(){
     return{
-
       tableData: [],
       total :0,
       pageNum: 1,
-      pageSize: 2,
+      pageSize: 10,
       source: "",
       paperid: "",
       examdate:"",

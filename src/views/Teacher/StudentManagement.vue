@@ -32,7 +32,7 @@
     <el-table-column type="selection" width="55"></el-table-column>
     <el-table-column prop="url" label="Avatar" width="120">
       <template   slot-scope="scope">
-        <img :src="scope.row.url"  min-width="70" height="70" />
+        <img :src="scope.row.url"  height="70" />
       </template>
     </el-table-column>
     <el-table-column prop="id" label="Student id" width="140">
@@ -368,7 +368,6 @@ export default {
   text-align: center;
 }
 .avatar {
-  width: 178px;
   height: 178px;
   display: block;
 }
