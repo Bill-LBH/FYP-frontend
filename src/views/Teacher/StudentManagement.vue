@@ -49,7 +49,7 @@
     </el-table-column>
     <el-table-column prop="major" label="Major" width="140">
     </el-table-column>
-    <el-table-column prop="year" label="Enrollment year" width="140">
+    <el-table-column prop="year" label="Enroll year" width="140">
     </el-table-column>
     <el-table-column prop="institute" label="Institute" width="140">
     </el-table-column>
@@ -147,7 +147,7 @@ export default {
       avatar: null,
       total :0,
       pageNum: 1,
-      pageSize: 2,
+      pageSize: 10,
       id:"",
       username: "",
       gender:"",
@@ -294,7 +294,6 @@ export default {
       window.open("http://localhost:9090/student/export")
     },
     save() {
-      console.log(this.form)
       request.post("/student", this.form).then(res => {
         if (res) {
           this.$message.success("Save successfully")
@@ -334,7 +333,6 @@ export default {
       })
     },
     handleSizeChange(pageSize) {
-      console.log(pageSize)
       this.pageSize = pageSize
       this.load()
     },

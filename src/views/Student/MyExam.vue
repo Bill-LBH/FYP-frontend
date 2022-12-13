@@ -5,9 +5,9 @@
     </div>
     <div class="wrapper">
       <ul class="top">
-        <li><b style="font-size: 20px">Paper list</b></li>
-        <li class="search-li"><div class="icon"><input type="text" placeholder="Exam name" class="search" v-model="key"><i class="el-icon-search"></i></div></li>
-        <li><el-button type="primary" @click="search()">Search exam</el-button></li>
+        <li><b style="font-size: 20px;margin-left: 550px;color: #293c54;font-family: 'Times New Roman'">Paper list</b></li>
+<!--        <li class="search-li"><div class="icon"><input type="text" placeholder="Exam name" class="search" v-model="key"><i class="el-icon-search"></i></div></li>-->
+<!--        <li><el-button type="primary" @click="search()">Search exam</el-button></li>-->
       </ul>
       <ul class="paper">
         <li class="item" v-for="(item,index) in tableData" :key="index">

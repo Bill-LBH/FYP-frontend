@@ -35,7 +35,7 @@
       </el-table-column>
       <el-table-column prop="totaltime" label="Total time (minutes)" width="160">
       </el-table-column>
-      <el-table-column prop="grade" label="Student Grade" width="140">
+      <el-table-column prop="grade" label="Student intake" width="140">
       </el-table-column>
       <el-table-column prop="term" label="Semester" width="100">
       </el-table-column>
@@ -91,7 +91,7 @@
         <el-form-item label="Total time (minutes)">
           <el-input type="number" v-model="form.totaltime" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="Grade">
+        <el-form-item label="Intake">
           <el-select v-model="form.grade" placeholder="Please select exam grade">
             <el-option
                 v-for="item in gradeoptions"

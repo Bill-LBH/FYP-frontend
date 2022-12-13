@@ -20,9 +20,9 @@
       </el-table-column>
       <el-table-column prop="totaltime" label="Total time" width="100">
       </el-table-column>
-      <el-table-column prop="grade" label="Grade" width="100">
+      <el-table-column prop="grade" label="Intake" width="100">
       </el-table-column>
-      <el-table-column prop="term" label="Term" width="100">
+      <el-table-column prop="term" label="Semester" width="100">
       </el-table-column>
       <el-table-column prop="major" label="Major" width="160">
       </el-table-column>
@@ -93,7 +93,6 @@ export default {
           paperid: this.paperid,
         }
       }).then(res => {
-        console.log(res)
 
         this.tableData = res.records
         this.total = res.total
@@ -118,12 +117,10 @@ export default {
       this.load()
     },
     handleSizeChange(pageSize) {
-      console.log(pageSize)
       this.pageSize = pageSize
       this.load()
     },
     handleCurrentChange(pageNum) {
-      console.log(pageNum)
       this.pageNum = pageNum
       this.load()
     }

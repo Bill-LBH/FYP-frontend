@@ -10,7 +10,7 @@
       <!--canvas截取流-->
       <canvas style="display:none; margin-left: 900px" ref="canvas" :width="videoWidth" :height="videoHeight"></canvas>
       <!--图片展示-->
-      <div style="margin-top: 330px;margin-left: 400px;">Video</div>
+      <div style="margin-top: 330px;margin-left: 400px;">Screenshot</div>
       <video ref="video" id="video" :width="videoWidth" :height="videoHeight" autoplay style="display: block; margin-left: 900px"></video>
       <canvas id="canvas"  :width="videoWidth" :height="videoHeight" style="margin-left: 900px"></canvas>
       <!--开启摄像头-->
@@ -19,7 +19,7 @@
       <el-button  type="primary"  @click="closeCamera" style="margin-top: 420px;width: 120px;margin-left: 700px">Close camera</el-button>
       <el-button  type="primary"  @click="setImage" style="margin-top: 420px;width: 120px;margin-left: 1000px">Take picture</el-button>
       <!--确认-->
-      <div style="margin-top: 330px;margin-left: 1100px;">Screenshot</div>
+      <div style="margin-top: 330px;margin-left: 1100px;">Video</div>
       <img :src="imgSrc" alt="" class="tx_img" style="margin-left: 200px;width: 450px;height: 300px">
       <div class="msg">
         <p class="title">Instruction：</p>
@@ -60,11 +60,18 @@ export default {
     this.callCamera();
     this.changePhoto();
     this.checkFace();
+
     // if(this.src!='user'){
     //   this.myInterval = setInterval(()=>{
     //     this.setImage();
     //   },2000)
     // }
+  },
+  beforeDestroy () {
+    clearInterval(this.myInterval);
+    // 停止侦测
+    this.trackerTask.stop();
+    this.cancalCloseVideo();
   },
   methods: {
     // 调用摄像头
@@ -83,6 +90,9 @@ export default {
     },
     // 拍照
     setImage () {
+      if(this.isHasFace===false){
+        this.$message.error("Face feature acquisition failed,please try again")
+      }
       if(!this.isHasFace){
         return false;
       }
@@ -136,6 +146,7 @@ export default {
         track.stop()
       })
       this.$refs['video'].srcObject = null
+      // this.MediaStreamTrack.stop();
     },
 
 
@@ -144,7 +155,6 @@ export default {
       /**得到所有的设备*/
       navigator.mediaDevices.enumerateDevices()
           .then((devices)=> {
-            console.log(devices)
             this.videoArr = [];
             devices.forEach((device)=> {
               if(device.kind == 'videoinput'){
@@ -232,21 +242,11 @@ export default {
     },
     setFace(data){
       this.isHasFace = data;
-    }
-
-
-
+    },
+    cancalCloseVideo(){
+     this.MediaStreamTrack.stop();
+    },
   },
-  cancalCloseVideo(){
-    this.MediaStreamTrack && this.MediaStreamTrack.stop();
-  },
-  beforeDestroy () {
-    clearInterval(this.myInterval);
-    // 停止侦测
-    this.trackerTask.stop();
-    this.cancalCloseVideo();
-  }
-
 }
 </script>
 <style lang="less" scoped>
