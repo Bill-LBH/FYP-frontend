@@ -181,6 +181,7 @@ export default {
       currentType: 1, //当前题型类型  1--选择题  2--填空题  3--判断题
       radio: [], //保存考生所有选择题的选项
       title: "Please select right options",
+      exitcount:0,
       index: 0, //全局index
       userInfo: { //用户信息
         name: null,
@@ -214,16 +215,30 @@ export default {
     this.fullScreen()
   },
   mounted() {
-    this.exit()
+    this.handleScreenFull()
     // this.showTime()
   },
 
   methods: {
+    handleScreenFull() {
+      if(!screenfull.isEnabled){
+        return false;
+      }
+      if (screenfull.isEnabled) {
+        screenfull.on('change', () => {
+          if(screenfull.isFullscreen===false){
+            this.$message.error('You are not allowed to leave')
+            this.exitcount+=1
+            this.commit()
+          }
 
-    exit(){
-      screenfull.request()
-      console.log(1)
+        });
+      }
     },
+    // exit(){
+    //   screenfull.request()
+    //   console.log(1)
+    // },
     getTime(date) { //日期格式化
       let year = date.getFullYear()
       let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
@@ -470,7 +485,7 @@ export default {
           finalScore += this.topic[3][index].score // 计算总分数
         }
       })
-      if (this.time !== 0) {
+      if (this.time !== 0&&this.exitcount===0) {
         this.$confirm("Did you turn in your paper early before the end of the exam?", "Tips", {
           confirmButtonText: 'Yes',
           cancelButtonText: 'No',
@@ -501,7 +516,7 @@ export default {
         }).catch(() => {
         })
       }
-      else if(this.time===0){
+      else if(this.time===0&&this.exitcount===0){
           this.$message.error("Time is up,submit automatically!")
           let date = new Date()
           this.endTime = this.getTime(date)
@@ -525,6 +540,31 @@ export default {
               })
             }
           })
+      }
+      else if(this.exitcount!==0){
+        this.$message.error("You are considered cheating!System will submit the paper now!!")
+        let date = new Date()
+        this.endTime = this.getTime(date)
+        let answerDate = this.endTime
+        this.submitscore.examcode = this.examData.examcode
+        this.submitscore.studentid = this.userInfo.id
+        this.submitscore.subject = this.examData.source
+        this.submitscore.score = finalScore
+        this.submitscore.answerdate = answerDate
+        request.post("/score", this.submitscore).then(res => {
+          if (res.code == 200) {
+            this.$router.push({
+              path: '/studentscore', query: {
+                score: finalScore,
+                startTime: this.startTime,
+                endTime: this.endTime,
+                subject:this.examData.source,
+                totalscore:this.examData.totalscore,
+                totaltime:this.examData.totaltime
+              }
+            })
+          }
+        })
       }
     },
     showTime() { //倒计时
