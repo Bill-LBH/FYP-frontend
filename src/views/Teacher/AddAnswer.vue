@@ -62,7 +62,7 @@ export default {
       tableData: [],
       total :0,
       pageNum: 1,
-      pageSize: 2,
+      pageSize: 10,
       examcode:"",
       source: "",
       paperid: "",
