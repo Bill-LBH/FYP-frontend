@@ -12,6 +12,7 @@ import store from '@/vuex/store'
 import axios from "axios";
 import VueCookies from 'vue-cookies';
 import './assets/font.css';
+import VueFullscreen from 'vue-fullscreen'
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios

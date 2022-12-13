@@ -79,7 +79,7 @@
       </el-descriptions>
     </el-card>
     <el-dialog title="New student Information" :visible.sync="dialogFormVisible" width="30%" >
-      <el-form label-width="100px" size="small">
+      <el-form label-width="100px" size="small" :model="form" ref="form">
         <el-form-item label="Address">
           <el-input v-model="form.address" autocomplete="off"></el-input>
         </el-form-item>
@@ -147,14 +147,17 @@ export default {
             this.major=res.major;
             this.year=res.year;
             this.institute=res.institute;
+            this.form= {
+              id:localStorage.getItem("UserId"),
+              address: res.address,
+              email: res.email,
+              phone: res.phone,
+            }
           })
           .catch((err) => {
           });
     },
     handleEdit() {
-      this.form.address=this.address
-      this.form.email=this.email
-      this.form.phone=this.mobilePhoneNumber
       this.dialogFormVisible = true
     },
   },

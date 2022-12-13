@@ -215,6 +215,7 @@ export default {
   },
   mounted() {
     this.exit()
+    // this.showTime()
   },
 
   methods: {
@@ -500,14 +501,41 @@ export default {
         }).catch(() => {
         })
       }
+      else if(this.time===0){
+          this.$message.error("Time is up,submit automatically!")
+          let date = new Date()
+          this.endTime = this.getTime(date)
+          let answerDate = this.endTime
+          this.submitscore.examcode = this.examData.examcode
+          this.submitscore.studentid = this.userInfo.id
+          this.submitscore.subject = this.examData.source
+          this.submitscore.score = finalScore
+          this.submitscore.answerdate = answerDate
+          request.post("/score", this.submitscore).then(res => {
+            if (res.code == 200) {
+              this.$router.push({
+                path: '/studentscore', query: {
+                  score: finalScore,
+                  startTime: this.startTime,
+                  endTime: this.endTime,
+                  subject:this.examData.source,
+                  totalscore:this.examData.totalscore,
+                  totaltime:this.examData.totaltime
+                }
+              })
+            }
+          })
+      }
     },
     showTime() { //倒计时
       setInterval(() => {
         this.time -= 1
+        console.log(this.time)
         if (this.time === 3) {
           this.$message.error('Attention candidates, there are 3 minutes left in the examination time！！！')
-          if (this.time === 0) {
-          }
+        }
+         if (this.time === 0) {
+          this.commit()
         }
       }, 1000 * 60)
     }
