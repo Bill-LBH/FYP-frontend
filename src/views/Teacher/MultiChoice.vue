@@ -138,7 +138,7 @@
           <el-input v-model="form.analysis" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Score">
-          <el-input v-model="form.score" autocomplete="off"></el-input>
+          <el-input v-model="form.score" type="number" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Section">
           <el-input v-model="form.section" autocomplete="off"></el-input>

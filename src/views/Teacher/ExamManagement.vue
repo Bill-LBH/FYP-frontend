@@ -101,8 +101,8 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Term">
-        <el-select v-model="form.term" placeholder="Please select exam term">
+        <el-form-item label="Semester">
+        <el-select v-model="form.term" placeholder="Please select exam semester">
           <el-option
               v-for="item in termoptions"
               :key="item.value"
