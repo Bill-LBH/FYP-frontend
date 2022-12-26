@@ -171,7 +171,7 @@ export default {
       fullscreen: false,
       startTime: null, //考试开始时间
       endTime: null, //考试结束时间
-      time: null, //考试持续时间
+      time:60, //考试持续时间
       reduceAnswer: [],  //vue官方不支持3层以上数据嵌套,如嵌套则会数据渲染出现问题,此变量直接接收3层嵌套时的数据。
       answerScore: 0, //答题总分数
       bg_flag: false, //已答标识符,已答改变背景色
@@ -218,6 +218,9 @@ export default {
     this.handleScreenFull()
     // this.showTime()
   },
+  destroyed() {
+    screenfull.exit()
+  },
 
   methods: {
     handleScreenFull() {
@@ -261,6 +264,7 @@ export default {
         this.examData = res.data//获取考试详情
         this.index = 0
         this.time = this.examData.totaltime //获取分钟数
+        console.log(this.time)
         let paperid = this.examData.paperid
         request.get("/paper-manage/paper/" + paperid).then(res => {  //通过paperId获取试题题目信息
           this.topic = res
@@ -541,8 +545,8 @@ export default {
             }
           })
       }
-      else if(this.exitcount!==0){
-        this.$message.error("You are considered cheating!System will submit the paper now!!")
+      else if(this.exitcount!==0&&this.time>0){
+        this.$message("Paper is submitted")
         let date = new Date()
         this.endTime = this.getTime(date)
         let answerDate = this.endTime
